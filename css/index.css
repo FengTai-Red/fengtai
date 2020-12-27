@@ -1,0 +1,95 @@
+/*
+公用部分
+*/
+.background img {
+    /* 主页背景 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 auto;
+    z-index:-100;
+}
+.shortcut {
+    /* 导航栏 */
+    width: 100%;
+    height: 100px;
+}
+.shortcut img {
+    /* 导航背景 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index:-99;
+}
+.shortcut .fl {
+    /* 主页 */
+    float: left;
+}
+
+.shortcut .fr {
+    /* 导航 */
+    float: right;
+    line-height: 100px;
+}
+
+.shortcut .fl a{
+    /* 风台 */
+    display: block;
+    margin-left: 19px;
+    width: 173px;
+    height: 100px;
+    background-size:100%;
+    background-repeat: no-repeat;
+}
+
+.shortcut .fr li {
+    /* 导航 */
+    float: right;
+    height: 100px;
+    padding: 0 19px 0 19px;
+    margin-right: 43px;
+}
+.shortcut .fr li a {
+    /* 导航 */
+    font-size: 37px;
+    color: #ffffff;
+}
+.shortcut .fr li a:hover {
+    color: #66ccff;
+}
+.to_top {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 0px;
+    right: 10px;
+}
+.to_top img {
+    width: 100%;
+    height: 100%;
+}
+.music {
+    position: fixed;
+    height: 30px;
+    left: 10px;
+    bottom: 10px;
+}
+.music audio {
+    height: 100%;
+}
+/* 网页滤镜
+html.gray {
+    -webkit-filter: grayscale(.95);
+}
+*/
+body
+{
+    cursor:url(../image/cursor/work.cur),auto;
+}
+a
+{
+    cursor:url(../image/cursor/normal.cur),auto;
+}

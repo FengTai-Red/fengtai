@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/10.jpg" alt="">
+        <h3 class="title">JAVA的网络编程</h3>
+        <h6 class="snapshot">
+            计算机网络是指两台或更多的计算机组成的网络，在同一个网络中，任意两台计算机都可以直接通信，因为所有计算机都需要遵循同一种网络协议。
+        </h6>
+        <p class="time">2020/05/17</p>
+
+        <h4 class="passage">TCP/IP协议</h4>
+        <p class="letterpress"></p>
+        <p class="letterpress">TCP/IP模型是互联网的基础，它是一系列网络协议的总称。这些协议可以划分为四层，从上到下分别为链路层、网络层、传输层和应用层。</p>
+        <p class="letterpress">链路层：负责封装和解封装IP报文，发送和接受ARP/RARP报文等。</p>
+        <p class="letterpress">网络层：负责路由以及把分组报文发送给目标网络或主机。</p>
+        <p class="letterpress">传输层：负责对报文进行分组和重组，并以TCP或UDP协议格式封装报文。</p>
+        <p class="letterpress">应用层：负责向用户提供应用程序，比如HTTP、FTP、Telnet、DNS、SMTP等。</p>
+        <p class="letterpress">四层协议背后的思想：上层屏蔽下层细节，只使用其提供的服务。高内聚低耦合，每一层专注于其功能，各层之间的关系依赖不大。</p>
+        <p class="letterpress">简单来说就是一个数据包写好后准备发到另一个主机上，需经过上面从应用层开始到链路层的层层打包，每经过一层加上对应层协议的报头。最后发送到目标主机，目标主机在反过来，从链路层开始到应用层，层层剥掉报头，就就可以获得对应的数据包了。</p>
+        <p class="letterpress">不过从实质来讲，TCP/IP只有最上面的三层，因为最下面的网络接口层基本上和一般的通信链路的功能上没有多大差别</p>
+        <p class="letterpress">TCP/IP 是互联网相关的各类协议族的总称，比如：TCP，UDP，IP，FTP，HTTP，ICMP，SMTP 等都属于 TCP/IP 族内的协议。TCP/IP 中有两个具有代表性的传输层协议，分别是 TCP 和 UDP。</p>
+        <h4 class="passage">UDP</h4>
+        <p class="letterpress">UDP协议全称是用户数据报协议，在网络中它与TCP协议一样用于处理数据包，是一种无连接的协议。UDP有不提供数据包分组、组装和不能对数据包进行排序的缺点，也就是说，当报文发送之后，是无法得知其是否安全完整到达的</p>
+        <p class="letterpress">它除了给应用程序发送数据包功能并允许它们在所需的层次上架构自己的协议之外，几乎没有做什么特别的事情，只是数据报文的搬运工，不会对数据报文进行任何拆分和拼接操作。</p>
+        <p class="letterpress">在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给网络层了</p>
+        <p class="letterpress">在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作</p>
+        <p class="letterpress">因此它的传输速度快，而且支持支持一对多，多对多，多对一的方式。</p>
+        <p class="letterpress">缺点就是不可靠，因为它通信都不需要建立连接，想发就发，这样的情况肯定不可靠，并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。</p>
+        <p class="letterpress">下面用一个用于收发字符串的代码来介绍下它在JAVA中的使用方式:</p>
+        <p class="letterpress">首先是接收端</p>
+        <p class="letterpress">1、使用 DatagramSocket 指定端口创建接收端</p>
+        <p class="letterpress">2、准备容器，封装成 DatagramPacket包裹</p>
+        <p class="letterpress">3、阻塞式等待数据</p>
+        <p class="letterpress">4、分析数据</p>
+        <p class="letterpress">5、关闭连接，释放资源</p>
+        <div class="code_box">
+            <p class="code">public class SUDPServer {</p>
+            <p class="code">    public static void main(String[] args) {</p>
+            <p class="code">        STestServerA server = new STestServerA();</p>
+            <p class="code">        new Thread(server).start();</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+            <p class="code">class STestServerA implements Runnable {</p>
+            <p class="code">    // 接收端</p>
+            <p class="code">    @Override</p>
+            <p class="code">    public void run() {</p>
+            <p class="code">        try {</p>
+            <p class="code">            testReceive();</p>
+            <p class="code">        } catch (IOException e) {</p>
+            <p class="code">            e.printStackTrace();</p>
+            <p class="code">        }</p>
+            <p class="code">    }</p>
+            <p class="code"></p>
+            <p class="code">    public void testReceive() throws IOException {</p>
+            <p class="code">        System.out.println("---接收端---");</p>
+            <p class="code">        DatagramSocket server = new DatagramSocket(11131); // 使用 DatagramSocket 指定端口创建接收端</p>
+            <p class="code">        byte[] container = new byte[1024 * 60]; // 准备容器</p>
+            <p class="code">        DatagramPacket packet = new DatagramPacket(container, 0, container.length); // 封装成 DatagramPacket包裹</p>
+            <p class="code">        server.receive(packet); // 阻塞式</p>
+            <p class="code">        byte[] datas = packet.getData(); // 分析数据</p>
+            <p class="code">        int len = packet.getLength();</p>
+            <p class="code">        System.out.println(new String(datas, 0, len));</p>
+            <p class="code">        server.close();</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">然后是发送端</p>
+        <p class="letterpress">1、使用 DatagramSocket 指定端口创建发送端</p>
+        <p class="letterpress">2、准备数据，转成字节数组</p>
+        <p class="letterpress">3、将数据封装成DatagramPacket包裹，指定目的地</p>
+        <p class="letterpress">4、发送包裹DatagramSocket.send(DatagramPacket p)</p>
+        <p class="letterpress">5、关闭连接，释放资源</p>
+        <div class="code_box">
+            <p class="code">public class SUDPClient {</p>
+            <p class="code">    public static void main(String[] args) {</p>
+            <p class="code">        STestClientA client = new STestClientA();</p>
+            <p class="code">        new Thread(client).start();</p>
+            <p class="code">    }</p>
+            <p class="code">class STestClientA implements Runnable {</p>
+            <p class="code">    // 发送端</p>
+            <p class="code">    @Override</p>
+            <p class="code">    public void run() {</p>
+            <p class="code">        try {</p>
+            <p class="code">            testSend();</p>
+            <p class="code">        } catch (IOException e) {</p>
+            <p class="code">            e.printStackTrace();</p>
+            <p class="code">        }</p>
+            <p class="code">    }</p>
+            <p class="code"></p>
+            <p class="code">    public void testSend() throws IOException {</p>
+            <p class="code">        System.out.println("---发送端---");</p>
+            <p class="code">        DatagramSocket client = new DatagramSocket(13131); // 使用 DatagramSocket 指定端口创建发送端</p>
+            <p class="code">        String data = "ko no dio da"; // 准备数据</p>
+            <p class="code">        byte[] datas = data.getBytes(); // 转成字节数组</p>
+            <p class="code">        DatagramPacket packet = new DatagramPacket(datas, 0, datas.length, new InetSocketAddress("localhost", 11131)); // 封装成DatagramPacket包裹，指定目的地</p>
+            <p class="code">        client.send(packet); // 发送包裹 send(DatagramPacket p)</p>
+            <p class="code">        client.close(); // 释放资源</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">先启动接收端，然后启动发送端，就可以看到数据的收发了</p>
+        <h4 class="passage">TCP</h4>
+        <p class="letterpress">TCP协议全称是传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议。流就是指不间断的数据结构，你可以把它想象成排水管中的水流。</p>
+        <p class="letterpress">也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达</p>
+        <p class="letterpress">每一条TCP连接只能是点到点的，要用TCP发送数据，首先要在两点之间建立连接才能发送，建立一个TCP连接的过程为三次握手的过程</p>
+        <p class="letterpress">第一次握手：客户端向服务端发送连接请求报文段。该报文段中包含自身的数据通讯初始序号。请求发送后，客户端便进入 SYN-SENT 状态。</p>
+        <p class="letterpress">第二次握手：服务端收到连接请求报文段后，如果同意连接，则会发送一个应答，该应答中也会包含自身的数据通讯初始序号，发送完成后便进入 SYN-RECEIVED 状态。</p>
+        <p class="letterpress">第三次握手：当客户端收到连接同意的应答后，还要向服务端发送一个确认报文。客户端发完这个报文段后便进入 ESTABLISHED 状态，服务端收到这个应答后也进入 ESTABLISHED 状态，此时连接建立成功</p>
+        <p class="letterpress">TCP为了实现网络通信的可靠性，使用了复杂的拥塞控制算法，建立了繁琐的握手过程，由于TCP内置的系统协议栈中，极难对其进行改进</p>
+        <p class="letterpress">连接建立好后，才能发送数据,TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认（ACK）；如果发送端实体在合理的往返时延（RTT）内未收到确认，那么对应的数据（假设丢失了）将会被重传。</p>
+        <p class="letterpress">采用TCP，一旦发生丢包，TCP会将后续的包缓存起来，等前面的包重传并接收到后再继续发送，延时会越来越大。</p>
+        <p class="letterpress">数据传输完毕后，双方都可以释放连接，此时客户端和服务器都是处于ESTABLISHED状态，然后客户端主动断开连接，服务器被动断开连接，这就要进行四次挥手了，这个就不写了。</p>
+        <p class="letterpress">下面用一个用于收发字符串的代码来介绍下它在JAVA中的使用方式:</p>
+        <p class="letterpress">首先是服务端：</p>
+        <p class="letterpress">1.指定端口 使用ServerSocket创建服务器</p>
+        <p class="letterpress">2.阻塞等待连接</p>
+        <p class="letterpress">3.使用流接收数据</p>
+        <p class="letterpress">4.关闭连接</p>
+        <div class="code_box">
+            <p class="code">public class STCPServer {</p>
+            <p class="code">    public static void main(String[] args) {</p>
+            <p class="code">        System.out.println("===服务端===");</p>
+            <p class="code">        try {</p>
+            <p class="code">            STCPServerTest01.server();</p>
+            <p class="code">        } catch (IOException e) {</p>
+            <p class="code">            e.printStackTrace();</p>
+            <p class="code">        }</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+            <p class="code">class STCPServerTest01{</p>
+            <p class="code">    // 测试TCP收发消息</p>
+            <p class="code">    public static void server() throws IOException {</p>
+            <p class="code">        ServerSocket server = new ServerSocket(10001);  // 1.指定端口 使用ServerSocket创建服务器</p>
+            <p class="code">        Socket client =  server.accept();  // 阻塞等待连接</p>
+            <p class="code">        System.out.println("---已建立连接---");</p>
+            <p class="code">        DataInputStream dis = new DataInputStream(client.getInputStream());</p>
+            <p class="code">        String data = dis.readUTF();</p>
+            <p class="code">        System.out.println(data);</p>
+            <p class="code">        dis.close();</p>
+            <p class="code">        server.close();</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">然后是客户端：</p>
+        <p class="letterpress">1.建立连接</p>
+        <p class="letterpress">2.准备数据</p>
+        <p class="letterpress">3.发送数据</p>
+        <p class="letterpress">4.关闭连接</p>
+        <div class="code_box">
+            <p class="code">public class STCPServer {</p>
+            <p class="code">    public static void main(String[] args) {</p>
+            <p class="code">        System.out.println("===服务端===");</p>
+            <p class="code">        try {</p>
+            <p class="code">            STCPServerTest01.server();</p>
+            <p class="code">        } catch (IOException e) {</p>
+            <p class="code">            e.printStackTrace();</p>
+            <p class="code">        }</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+            <p class="code">class STCPServerTest01{</p>
+            <p class="code">    // 测试TCP收发消息</p>
+            <p class="code">    public static void server() throws IOException {</p>
+            <p class="code">        ServerSocket server = new ServerSocket(10001);  // 1.指定端口 使用ServerSocket创建服务器</p>
+            <p class="code">        Socket client =  server.accept();  // 阻塞等待连接</p>
+            <p class="code">        System.out.println("---已建立连接---");</p>
+            <p class="code">        DataInputStream dis = new DataInputStream(client.getInputStream());</p>
+            <p class="code">        String data = dis.readUTF();</p>
+            <p class="code">        System.out.println(data);</p>
+            <p class="code">        dis.close();</p>
+            <p class="code">        server.close();</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">先启动服务端，然后启动客户端，就可以看到数据的收发了</p>
+    </div>
+</body>
+</html>

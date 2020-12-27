@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/87.jpg" alt="">
+        <h3 class="title">LeetCode</h3>
+        <h6 class="snapshot">
+            发现真的去更新文章还是有难度的，可能是对知识点理解不够，或是文笔不够等原因，这是好事，有挑战才能进步。慢慢来吧，再此期间先做些LeetCode的算法题吧，也算更新文章的方式吧。每月单号做一题(大概)
+        </h6>
+        <p class="time">2020/06/13</p>
+        <style>
+            .letterpress_title{
+            display: block;
+            text-align:center;
+            width: 30%;
+            margin:5% auto;
+            font-size: 17px;
+            color: #000000;
+            border-bottom: 2px solid #333333;
+            }
+            .index{
+                display: block;
+                margin: 10px 10px 0px 10px;
+                text-indent: 2em;
+                font-size: 17px;
+            }
+            .index:hover {
+                color: #66ccff;
+            }
+        </style>
+        <h4 class="passage">索引</h4>
+        <a class="index" href="#0001">0001.两数之和</a>
+        <a class="index" href="#0007">0007.整数反转</a>
+        <a class="index" href="#0009">0009.回文数</a>
+        <a class="index" href="#0013">0013.罗马数字转整数</a>
+        <a class="index" href="#0014">0014.最长公共前缀</a>
+        <a class="index" href="#0020">0020.有效的括号</a>
+        <a class="index" href="#0021">0021.合并两个有序链表</a>
+        <a class="index" href="#0026">0026.删除排序数组中的重复项</a>
+        <a class="index" href="#0027">0027.移除元素</a>
+        <a class="index" href="#0028">0028.实现 strStr()</a>
+        <a class="index" href="#0035">0035.搜索插入位置</a>
+        <a class="index" href="#0038">0038.外观数列</a>
+        <a class="index" href="#0058">0058.最后一个单词的长度</a>
+        <a class="index" href="#0066">0066.加一</a>
+        <a class="index" href="#0067">0067.二进制求和</a>
+        <a class="index" href="#0069">0069.x的平方根</a>
+        <a class="index" href="#0070">0070.爬楼梯</a>
+        <a class="index" href="#0083">0083.删除排序链表中的重复元素</a>
+        <a class="index" href="#0088">0088.合并两个有序数组</a>
+        <a class="index" href="#0100">0100.相同的树</a>
+        <a class="index" href="#0101">0101.对称二叉树</a>
+        <a class="index" href="#0104">0104.二叉树的最大深度</a>
+        <a class="index" href="#0107">0107.二叉树的层次遍历 II</a>
+        <h4 class="passage">LeetCode题目及个人解法</h4>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0001">0001. 两数之和</p>
+        <p class="letterpress">给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+        <p class="letterpress">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+        <p class="letterpress">示例:</p>
+        <p class="letterpress">给定 nums = [2, 7, 11, 15], target = 9</p>
+        <p class="letterpress">因为 nums[0] + nums[1] = 2 + 7 = 9</p>
+        <p class="letterpress">所以返回 [0, 1]</p>
+        <div class="code_box">
+            <p class="code">def twoSum(nums, target):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type nums: List[int]</p>
+            <p class="code">    :type target: int</p>
+            <p class="code">    :rtype: List[int]</p>
+            <p class="code">    """</p>
+            <p class="code">    leng = len(nums)</p>
+            <p class="code">    for i in range(leng):</p>
+            <p class="code">        for j in range(i+1, leng):</p>
+            <p class="code">            if nums[i] + nums[j] == target:</p>
+            <p class="code">                return [i, j]</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0007">0007.整数反转</p>
+        <p class="letterpress">给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: 123</p>
+        <p class="letterpress">输出: 321</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: -123</p>
+        <p class="letterpress">输出: -321</p>
+        <p class="letterpress">示例 3:</p>
+        <p class="letterpress">输入: 120</p>
+        <p class="letterpress">输出: 21</p>
+        <p class="letterpress">假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−2^31,  2^(31 − 1)]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p>
+        <div class="code_box">
+            <p class="code">def reverse(x):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type x: int</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    a = x</p>
+            <p class="code">    if x &lt; 0:</p>
+            <p class="code">        x = abs(x)</p>
+            <p class="code">    lenght = 1</p>
+            <p class="code">    mun_list = []</p>
+            <p class="code">    mun_list.append(x % 10)</p>
+            <p class="code">    while(True):</p>
+            <p class="code">        if abs(x) &gt;= 10:</p>
+            <p class="code">            x = x // 10</p>
+            <p class="code">            mun_list.append(x % 10)</p>
+            <p class="code">            lenght += 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            break</p>
+            <p class="code">    num = 0</p>
+            <p class="code">    for i in range(lenght):</p>
+            <p class="code">        num += mun_list[i] * (10 ** (lenght -1))</p>
+            <p class="code">        lenght -= 1</p>
+            <p class="code">    if a &lt; 0:</p>
+            <p class="code">        if (-num &lt; -2147483648):</p>
+            <p class="code">            return 0</p>
+            <p class="code">        else:</p>
+            <p class="code">            return -num</p>
+            <p class="code">    else:</p>
+            <p class="code">        if (num &gt; 2147483647):</p>
+            <p class="code">            return 0</p>
+            <p class="code">        else:</p>
+            <p class="code">            return num</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0009">0009.回文数</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: 121</p>
+        <p class="letterpress">输出: true</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: -121</p>
+        <p class="letterpress">输出: false</p>
+        <p class="letterpress">解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。</p>
+        <p class="letterpress">示例 3:</p>
+        <p class="letterpress">输入: 10</p>
+        <p class="letterpress">输出: false</p>
+        <p class="letterpress">解释: 从右向左读, 为 01 。因此它不是一个回文数。</p>
+        <div class="code_box">
+            <p class="code">def isPalindrome(x):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type x: int</p>
+            <p class="code">    :rtype: bool</p>
+            <p class="code">    """</p>
+            <p class="code">    if x &lt; 0:</p>
+            <p class="code">        return False</p>
+            <p class="code">    num = x</p>
+            <p class="code">    sum = 0</p>
+            <p class="code">    while(x != 0):</p>
+            <p class="code">        a = x % 10</p>
+            <p class="code">        sum = sum * 10 + a</p>
+            <p class="code">        x = x // 10</p>
+            <p class="code">    return sum - num == 0</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0013">0013.罗马数字转整数</p>
+        <p class="letterpress">罗马数字包含以下七种字符: I， V， X， L，C，D 和 M</p>
+        <p class="letterpress">I&nbsp;---&gt;1</p>
+        <p class="letterpress">V&nbsp;---&gt;5</p>
+        <p class="letterpress">X&nbsp;---&gt;10</p>
+        <p class="letterpress">L&nbsp;---&gt;50</p>
+        <p class="letterpress">C&nbsp;---&gt;100</p>
+        <p class="letterpress">D&nbsp;---&gt;500</p>
+        <p class="letterpress">M&nbsp;---&gt;1000</p>
+        <p class="letterpress">例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。。</p>
+        <p class="letterpress">通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况</p>
+        <p class="letterpress">I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。</p>
+        <p class="letterpress">X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </p>
+        <p class="letterpress">C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。</p>
+        <p class="letterpress">给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: "III"</p>
+        <p class="letterpress">输出: 3</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: "IV"</p>
+        <p class="letterpress">输出: 4</p>
+        <p class="letterpress">示例 3:</p>
+        <p class="letterpress">输入: "IX"</p>
+        <p class="letterpress">输出: 9</p>
+        <p class="letterpress">示例 4:</p>
+        <p class="letterpress">输入: "LVIII"</p>
+        <p class="letterpress">输出: 58</p>
+        <p class="letterpress">解释: L = 50, V= 5, III = 3.</p>
+        <p class="letterpress">示例 5:</p>
+        <p class="letterpress">输入: "MCMXCIV"</p>
+        <p class="letterpress">输出: 1994</p>
+        <p class="letterpress">解释: M = 1000, CM = 900, XC = 90, IV = 4.</p>
+        <div class="code_box">
+            <p class="code">def romanToInt(s):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type s: str</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    dicts = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000, }</p>
+            <p class="code">    sum = 0</p>
+            <p class="code">    str_len = len(s)</p>
+            <p class="code">    for i in range(str_len):</p>
+            <p class="code">        if i != str_len - 1:</p>
+            <p class="code">            if dicts[s[i]] &lt; dicts[s[i + 1]]:</p>
+            <p class="code">                sum -= dicts[s[i]]</p>
+            <p class="code">            else:</p>
+            <p class="code">                sum += dicts[s[i]]</p>
+            <p class="code">        else:</p>
+            <p class="code">            sum += dicts[s[i]]</p>
+            <p class="code">    return sum</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0014">0014.最长公共前缀</p>
+        <p class="letterpress">编写一个函数来查找字符串数组中的最长公共前缀</p>
+        <p class="letterpress">如果不存在公共前缀，返回空字符串 ""</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: ["flower","flow","flight"]</p>
+        <p class="letterpress">输出: "fl"</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: ["dog","racecar","car"]</p>
+        <p class="letterpress">输出: ""</p>
+        <p class="letterpress">解释: 输入不存在公共前缀。</p>
+        <div class="code_box">
+            <p class="code">def longestCommonPrefix(strs):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type strs: List[str]</p>
+            <p class="code">    :rtype: str</p>
+            <p class="code">    """</p>
+            <p class="code">    if strs == []:</p>
+            <p class="code">        return ""</p>
+            <p class="code">    lenght = len(strs)</p>
+            <p class="code">    temp = strs[0]</p>
+            <p class="code">    outstr = ""</p>
+            <p class="code">    for i in range(lenght):</p>
+            <p class="code">        if len(temp) &gt; len(strs[i]):</p>
+            <p class="code">            temp = strs[i]</p>
+            <p class="code">    lenght = len(temp)</p>
+            <p class="code">    is_same = False</p>
+            <p class="code">    for i in range(lenght):</p>
+            <p class="code">        for s in strs:</p>
+            <p class="code">            if temp[i] == s[i]:</p>
+            <p class="code">                is_same = True</p>
+            <p class="code">            else:</p>
+            <p class="code">                is_same = False</p>
+            <p class="code">                break</p>
+            <p class="code">        if not is_same:</p>
+            <p class="code">            break</p>
+            <p class="code">        else:</p>
+            <p class="code">            outstr += temp[i]</p>
+            <p class="code">    return outstr</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0020">0020.有效的括号</p>
+        <p class="letterpress">给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效</p>
+        <p class="letterpress">有效字符串需满足：</p>
+        <p class="letterpress">&nbsp;&nbsp;1.左括号必须用相同类型的右括号闭合。</p>
+        <p class="letterpress">&nbsp;&nbsp;2.左括号必须以正确的顺序闭合。</p>
+        <p class="letterpress">注意空字符串可被认为是有效字符串</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: "()"</p>
+        <p class="letterpress">输出: true</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: "()[]{}"</p>
+        <p class="letterpress">输出: true</p>
+        <p class="letterpress">示例 3:</p>
+        <p class="letterpress">输入: "(]"</p>
+        <p class="letterpress">输出: false</p>
+        <p class="letterpress">示例 4:</p>
+        <p class="letterpress">输入: "([)]"</p>
+        <p class="letterpress">输出: false</p>
+        <p class="letterpress">示例 5:</p>
+        <p class="letterpress">输入: "{[]}"</p>
+        <p class="letterpress">输出: true</p>
+        <p class="letterpress"></p>
+        <div class="code_box">
+            <p class="code">def isValid(s):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type s: str</p>
+            <p class="code">    :rtype: bool</p>
+            <p class="code">    """</p>
+            <p class="code">    while "()" in s or "[]" in s or "{}" in s:</p>
+            <p class="code">        s = s.replace("()", "")</p>
+            <p class="code">        s = s.replace("[]", "")</p>
+            <p class="code">        s = s.replace("{}", "")</p>
+            <p class="code">    return s == ""</p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0021">0021.合并两个有序链表</p>
+        <p class="letterpress">将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的</p>
+        <p class="letterpress">示例：</p>
+        <p class="letterpress">输入：1->2->4, 1->3->4</p>
+        <p class="letterpress">输出：1->1->2->3->4->4</p>
+        <div class="code_box">
+            <p class="code">class ListNode(object):</p>
+            <p class="code">    def __init__(self, val=0, next=None):</p>
+            <p class="code">        self.val = val</p>
+            <p class="code">        self.next = next</p>
+            <p class="code"></p>
+            <p class="code">def mergeTwoLists(l1, l2):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type l1: ListNode</p>
+            <p class="code">    :type l2: ListNode</p>
+            <p class="code">    :rtype: ListNode</p>
+            <p class="code">    """</p>
+            <p class="code">    if (l1 == None):</p>
+            <p class="code">        return l2</p>
+            <p class="code">    if (l2 == None):</p>
+            <p class="code">        return l1</p>
+            <p class="code">    if (l1.val &lt;= l2.val):</p>
+            <p class="code">        l3 = l1</p>
+            <p class="code">        l1 = l1.next</p>
+            <p class="code">    else:</p>
+            <p class="code">        l3 = l2</p>
+            <p class="code">        l2 = l2.next</p>
+            <p class="code">    t = l3</p>
+            <p class="code">    while(l1 != None and l2 != None):</p>
+            <p class="code">        if (l1.val &lt; l2.val):</p>
+            <p class="code">            t.next = l1</p>
+            <p class="code">            t = t.next</p>
+            <p class="code">            l1 = l1.next</p>
+            <p class="code">        else:</p>
+            <p class="code">            t.next = l2</p>
+            <p class="code">            t = t.next</p>
+            <p class="code">            l2 = l2.next</p>
+            <p class="code">    if (l1 == None):</p>
+            <p class="code">        t.next = l2</p>
+            <p class="code">    if (l2 == None):</p>
+            <p class="code">        t.next = l1</p>
+            <p class="code">    return l3</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0026">0026.删除排序数组中的重复项</p>
+        <p class="letterpress">给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。</p>
+        <p class="letterpress">不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">给定数组 nums = [1,1,2], </p>
+        <p class="letterpress">函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </p>
+        <p class="letterpress">你不需要考虑数组中超出新长度后面的元素。</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">给定 nums = [0,0,1,1,1,2,2,3,3,4],</p>
+        <p class="letterpress">函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</p>
+        <p class="letterpress">你不需要考虑数组中超出新长度后面的元素。</p>
+        <div class="code_box">
+            <p class="code">def removeDuplicates(nums):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type nums: List[int]</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    le = len(nums)</p>
+            <p class="code">    if (le &lt;= 1):</p>
+            <p class="code">        return le</p>
+            <p class="code">    i = 0</p>
+            <p class="code">    while (i != le - 1):</p>
+            <p class="code">        if (nums[i] == nums[i+1]):</p>
+            <p class="code">            nums.remove(nums[i+1])</p>
+            <p class="code">            le -= 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            i += 1</p>
+            <p class="code">    return le</p>
+        </div>
+        <!-- ===================分界线2020/06/21=================== -->
+        <p class="letterpress_title" id="0027">0027.移除元素</p>
+        <p class="letterpress">给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</p>
+        <p class="letterpress">元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">给定 nums = [3,2,2,3], val = 3,</p>
+        <p class="letterpress">函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。</p>
+        <p class="letterpress">你不需要考虑数组中超出新长度后面的元素。</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">给定 nums = [0,1,2,2,3,0,4,2], val = 2,</p>
+        <p class="letterpress">函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</p>
+        <p class="letterpress">注意这五个元素可为任意顺序。</p>
+        <p class="letterpress">你不需要考虑数组中超出新长度后面的元素。</p>
+        <div class="code_box">
+            <p class="code">def removeElement(nums, val):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type nums: List[int]</p>
+            <p class="code">    :type val: int</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    le = len(nums)</p>
+            <p class="code">    if(le == 0):</p>
+            <p class="code">        return 0</p>
+            <p class="code">    i = 0</p>
+            <p class="code">    while(i != le):</p>
+            <p class="code">        if (nums[i] == val):</p>
+            <p class="code">            nums.remove(nums[i])</p>
+            <p class="code">            le -= 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            i += 1</p>
+            <p class="code">    return le</p>
+        </div>
+        <!-- ===================分界线2020/06/21=================== -->
+        <p class="letterpress_title" id="0028">0028.实现 strStr()</p>
+        <p class="letterpress">实现 strStr() 函数。</p>
+        <p class="letterpress">给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。</p>
+        <p class="letterpress">如果不存在，则返回  -1。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: haystack = "hello", needle = "ll"</p>
+        <p class="letterpress">输出: 2</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: haystack = "aaaaa", needle = "bba"</p>
+        <p class="letterpress">输出: -1</p>
+        <p class="letterpress">说明:</p>
+        <p class="letterpress">当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。</p>
+        <p class="letterpress">对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+        <div class="code_box">
+            <p class="code">def strStr(haystack, needle):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type haystack: str</p>
+            <p class="code">    :type needle: str</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    if (needle == ""):</p>
+            <p class="code">        return 0</p>
+            <p class="code">    i = 0</p>
+            <p class="code">    ne_le = len(needle)</p>
+            <p class="code">    ha_le = len(haystack) - ne_le + 1</p>
+            <p class="code">    for i in range(0, ha_le):</p>
+            <p class="code">        if(haystack[i:i+ne_le] == needle):</p>
+            <p class="code">            return i</p>
+            <p class="code">    return -1</p>
+        </div>
+        <!-- ===================分界线2020/06/25=================== -->
+        <p class="letterpress_title" id="0035">0035.搜索插入位置</p>
+        <p class="letterpress">给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+        <p class="letterpress">你可以假设数组中无重复元素。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: [1,3,5,6], 5</p>
+        <p class="letterpress">输出: 2</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: [1,3,5,6], 2</p>
+        <p class="letterpress">输出: 1</p>
+        <p class="letterpress">示例 3:</p>
+        <p class="letterpress">输入: [1,3,5,6], 7</p>
+        <p class="letterpress">输出: 4</p>
+        <p class="letterpress">示例 4:</p>
+        <p class="letterpress">输入: [1,3,5,6], 0</p>
+        <p class="letterpress">输出: 0</p>
+        <div class="code_box">
+            <p class="code">def searchInsert(nums, target):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type nums: List[int]</p>
+            <p class="code">    :type target: int</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    low = 0</p>
+            <p class="code">    height = len(nums)</p>
+            <p class="code">    if (target &gt; nums[-1]):</p>
+            <p class="code">        return height</p>
+            <p class="code">    if (target &lt; nums[0]):</p>
+            <p class="code">        return 0</p>
+            <p class="code">    while (low &lt; height):</p>
+            <p class="code">        mid = (low + height) // 2</p>
+            <p class="code">        if (target &gt; nums[mid]):</p>
+            <p class="code">            low = mid + 1</p>
+            <p class="code">        elif (target &lt; nums[mid]):</p>
+            <p class="code">            height = mid</p>
+            <p class="code">        else:</p>
+            <p class="code">            return mid</p>
+            <p class="code">    return low</p>
+        </div>
+        <!-- ===================分界线2020/06/30=================== -->
+        <p class="letterpress_title" id="0038">0038.外观数列</p>
+        <p class="letterpress">给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。</p>
+        <p class="letterpress">注意：整数序列中的每一项将表示为一个字符串。</p>
+        <p class="letterpress">「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：</p>
+        <p class="letterpress">1.     1</p>
+        <p class="letterpress">2.     11</p>
+        <p class="letterpress">3.     21</p>
+        <p class="letterpress">4.     1211</p>
+        <p class="letterpress">5.     111221</p>
+        <p class="letterpress">第一项是数字 1</p>
+        <p class="letterpress">描述前一项，这个数是 1 即 “一个 1 ”，记作 11</p>
+        <p class="letterpress">描述前一项，这个数是 11 即 “两个 1 ” ，记作 21</p>
+        <p class="letterpress">描述前一项，这个数是 21 即 “一个 2 一个 1 ” ，记作 1211</p>
+        <p class="letterpress">描述前一项，这个数是 1211 即 “一个 1 一个 2 两个 1 ” ，记作 111221</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: 1</p>
+        <p class="letterpress">输出: "1"</p>
+        <p class="letterpress">解释：这是一个基本样例。</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: 4</p>
+        <p class="letterpress">输出: "1211"</p>
+        <p class="letterpress">解释：当 n = 3 时，序列是 "21"，其中我们有 "2" 和 "1" 两组，"2" 可以读作 "12"，也就是出现频次 = 1 而 值 = 2；</p>
+        <p class="letterpress">类似 "1" 可以读作 "11"。所以答案是 "12" 和 "11" 组合在一起，也就是 "1211"。</p>
+        <div class="code_box">
+            <p class="code">def countAndSay(n):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type n: int</p>
+            <p class="code">    :rtype: str</p>
+            <p class="code">    """</p>
+            <p class="code">    count_list = ["0", "1", "11"]</p>
+            <p class="code">    if n == 1:</p>
+            <p class="code">        return count_list[1]</p>
+            <p class="code">    if n == 2:</p>
+            <p class="code">        return count_list[2]</p>
+            <p class="code">    for i in range(2, n):</p>
+            <p class="code">        now = count_list[i]</p>
+            <p class="code">        count = 1</p>
+            <p class="code">        num = now[0]</p>
+            <p class="code">        le = len(now)</p>
+            <p class="code">        temp = ""</p>
+            <p class="code">        for j in range(1, le):</p>
+            <p class="code">            if (num == now[j]):</p>
+            <p class="code">                count += 1</p>
+            <p class="code">            else:</p>
+            <p class="code">                temp = temp + str(count) + str(num)</p>
+            <p class="code">                count = 1</p>
+            <p class="code">                num = now[j]</p>
+            <p class="code">        temp = temp + str(count) + str(num)</p>
+            <p class="code">        count_list.append(temp)</p>
+            <p class="code">    return count_list[n]</p>
+        </div>
+        <!-- ===================分界线2020/07/04=================== -->
+        <p class="letterpress_title" id="0058">0058.最后一个单词的长度</p>
+        <p class="letterpress">给定一个仅包含大小写字母和空格 ' ' 的字符串 s，返回其最后一个单词的长度。</p>
+        <p class="letterpress">如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。</p>
+        <p class="letterpress">如果不存在最后一个单词，请返回 0 。</p>
+        <p class="letterpress">说明：一个单词是指仅由字母组成、不包含任何空格字符的 最大子字符串。</p>
+        <p class="letterpress">示例:</p>
+        <p class="letterpress">输入: "Hello World"</p>
+        <p class="letterpress">输出: 5</p>
+        <div class="code_box">
+            <p class="code">def lengthOfLastWord(s):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type s: str</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    i = len(s) - 1</p>
+            <p class="code">    count = 0</p>
+            <p class="code">    flag = True</p>
+            <p class="code">    while i != -1:</p>
+            <p class="code">        if (flag and s[i] == " "):</p>
+            <p class="code">            i -= 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            count += 1</p>
+            <p class="code">            flag = False</p>
+            <p class="code">            i -= 1</p>
+            <p class="code">            if (s[i] == " "):</p>
+            <p class="code">                break</p>
+            <p class="code">    return count</p>
+            <p class="code"></p>
+            <p class="code">s = "ss    "</p>
+            <p class="code">print(lengthOfLastWord(s))</p>
+        </div> 
+        <!-- ===================分界线2020/07/05=================== -->
+        <p class="letterpress_title" id="0066">0066.加一</p>
+        <p class="letterpress">给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。</p>
+        <p class="letterpress">最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。</p>
+        <p class="letterpress">你可以假设除了整数 0 之外，这个整数不会以零开头。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: [1,2,3]</p>
+        <p class="letterpress">输出: [1,2,4]</p>
+        <p class="letterpress">解释: 输入数组表示数字 123。</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: [4,3,2,1]</p>
+        <p class="letterpress">输出: [4,3,2,2]</p>
+        <p class="letterpress">解释: 输入数组表示数字 4321。</p>
+        <p class="letterpress"></p>
+        <div class="code_box">
+            <p class="code">def plusOne(self, digits):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type digits: List[int]</p>
+            <p class="code">    :rtype: List[int]</p>
+            <p class="code">    """</p>
+            <p class="code">    i = len(digits) - 1</p>
+            <p class="code">    while (i != -1):</p>
+            <p class="code">        num = digits[i] + 1</p>
+            <p class="code">        if (num != 10):</p>
+            <p class="code">            digits[i] = num</p>
+            <p class="code">            break</p>
+            <p class="code">        elif (i == 0 and digits[i] == 9):</p>
+            <p class="code">            digits[0] = 1</p>
+            <p class="code">            digits.append(0)</p>
+            <p class="code">            break</p>
+            <p class="code">        else:</p>
+            <p class="code">            digits[i] = 0</p>
+            <p class="code">            i -= 1</p>
+            <p class="code">    return digits</p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线2020/07/07=================== -->
+        <p class="letterpress_title" id="0067">0067.二进制求和</p>
+        <p class="letterpress">给你两个二进制字符串，返回它们的和（用二进制表示）。</p>
+        <p class="letterpress">输入为 非空 字符串且只包含数字 1 和 0。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: a = "11", b = "1"</p>
+        <p class="letterpress">输出: "100"</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: a = "1010", b = "1011"</p>
+        <p class="letterpress">输出: "10101"</p>
+        <p class="letterpress">提示：</p>
+        <p class="letterpress">每个字符串仅由字符 '0' 或 '1' 组成。</p>
+        <p class="letterpress">1 <= a.length, b.length <= 10^4</p>
+        <p class="letterpress">字符串如果不是 "0" ，就都不含前导零。</p>
+        <div class="code_box">
+            <p class="code">def addBinary(a, b):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type a: str</p>
+            <p class="code">    :type b: str</p>
+            <p class="code">    :rtype: str</p>
+            <p class="code">    """</p>
+            <p class="code">    len_a = len(a)</p>
+            <p class="code">    len_b = len(b)</p>
+            <p class="code">    c = ""</p>
+            <p class="code">    len_long = len_a if (len_a>len_b) else len_b</p>
+            <p class="code">    if (len_a < len_b):</p>
+            <p class="code">        a = ("0" * (len_long - len_a)) + a</p>
+            <p class="code">    else:</p>
+            <p class="code">        b = ("0" * (len_long - len_b)) + b</p>
+            <p class="code">    carry = 0</p>
+            <p class="code">    print(a)</p>
+            <p class="code">    print(b)</p>
+            <p class="code">    for i in range(len_long -1, -1, -1):</p>
+            <p class="code">        sum = (int(a[i]) + int(b[i]) + carry) % 2</p>
+            <p class="code">        carry = (int(a[i]) + int(b[i]) + carry) // 2</p>
+            <p class="code">        print(sum)</p>
+            <p class="code">        c = str(sum) + c</p>
+            <p class="code">    if (carry == 1):</p>
+            <p class="code">        c = str(carry) + c</p>
+            <p class="code">    return c</p>
+            <p class="code"></p>
+            <p class="code">a = "1"</p>
+            <p class="code">b = "1"</p>
+            <p class="code">print(addBinary(a, b))</p>
+        </div>
+        <!-- ===================分界线2020/=================== -->
+        <p class="letterpress_title" id="0069">0069.x 的平方根</p>
+        <p class="letterpress">实现 int sqrt(int x) 函数。</p>
+        <p class="letterpress">计算并返回 x 的平方根，其中 x 是非负整数。</p>
+        <p class="letterpress">由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: 4</p>
+        <p class="letterpress">输出: 2</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: 8</p>
+        <p class="letterpress">输出: 2</p>
+        <p class="letterpress">说明: 8 的平方根是 2.82842..., </p>
+        <p class="letterpress">由于返回类型是整数，小数部分将被舍去。</p>
+        <div class="code_box">
+            <p class="code">def mySqrt(x):</p>
+            <p class="code">    """</p>
+            <p class="code">    :type x: int</p>
+            <p class="code">    :rtype: int</p>
+            <p class="code">    """</p>
+            <p class="code">    low = 0</p>
+            <p class="code">    height = x</p>
+            <p class="code">    while(True):</p>
+            <p class="code">        mid = (low + height) // 2</p>
+            <p class="code">        a = mid * mid</p>
+            <p class="code">        b = (mid + 1) * (mid + 1)</p>
+            <p class="code">        if (a <= x and x < b):</p>
+            <p class="code">            return mid</p>
+            <p class="code">        elif (b > x):</p>
+            <p class="code">            height = mid - 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            low = mid + 1</p>
+            <p class="code">    return -1</p>
+            <p class="code"></p>
+            <p class="code">for i in range(1,101):</p>
+            <p class="code">    print("{0} : {1}".format(i,mySqrt(i)))</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0070">0070 .爬楼梯</p>
+        <p class="letterpress">假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+        <p class="letterpress">每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+        <p class="letterpress">注意：给定 n 是一个正整数。</p>
+        <p class="letterpress">示例 1：</p>
+        <p class="letterpress">输入： 2</p>
+        <p class="letterpress">输出： 2</p>
+        <p class="letterpress">解释： 有两种方法可以爬到楼顶。</p>
+        <p class="letterpress">1.  1 阶 + 1 阶</p>
+        <p class="letterpress">2.  2 阶</p>
+        <p class="letterpress">示例 2：</p>
+        <p class="letterpress">输入： 3</p>
+        <p class="letterpress">输出： 3</p>
+        <p class="letterpress">解释： 有三种方法可以爬到楼顶。</p>
+        <p class="letterpress">1.  1 阶 + 1 阶 + 1 阶</p>
+        <p class="letterpress">2.  1 阶 + 2 阶</p>
+        <p class="letterpress">3.  2 阶 + 1 阶</p>
+        <div class="code_box">
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def climbStairs(self, n):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type n: int</p>
+            <p class="code">        :rtype: int</p>
+            <p class="code">        """</p>
+            <p class="code">        if (n == 1):</p>
+            <p class="code">            return 1</p>
+            <p class="code">        li = [1,1]</p>
+            <p class="code">        for i in range(1, n):</p>
+            <p class="code">            temp = li[i] + li[i - 1]</p>
+            <p class="code">            li.append(temp)</p>
+            <p class="code">        return li[n]</p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0083">0083 .删除排序链表中的重复元素</p>
+        <p class="letterpress">给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</p>
+        <p class="letterpress">示例 1:</p>
+        <p class="letterpress">输入: 1->1->2</p>
+        <p class="letterpress">输出: 1->2</p>
+        <p class="letterpress">示例 2:</p>
+        <p class="letterpress">输入: 1->1->2->3->3</p>
+        <p class="letterpress">输出: 1->2->3</p>
+        <div class="code_box">
+            <p class="code"></p>
+            <p class="code">class ListNode(object):</p>
+            <p class="code">    def __init__(self, x):</p>
+            <p class="code">        self.val = x</p>
+            <p class="code">        self.next = None</p>
+            <p class="code"></p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def deleteDuplicates(self, head):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type head: ListNode</p>
+            <p class="code">        :rtype: ListNode</p>
+            <p class="code">        """</p>
+            <p class="code">        x = head</p>
+            <p class="code">        if (x == None):</p>
+            <p class="code">            return None</p>
+            <p class="code">        while(head != None):</p>
+            <p class="code">            if(head.next == None):</p>
+            <p class="code">                break</p>
+            <p class="code">            temp = head.val</p>
+            <p class="code">            if(temp == head.next.val):</p>
+            <p class="code">                head.next = head.next.next</p>
+            <p class="code">            else:</p>
+            <p class="code">                head = head.next</p>
+            <p class="code">        return x</p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0088">0088 .合并两个有序数组</p>
+        <p class="letterpress">给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。</p>
+        <p class="letterpress">说明:</p>
+        <p class="letterpress">初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。</p>
+        <p class="letterpress">你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。</p>
+        <p class="letterpress">示例:</p>
+        <p class="letterpress">输入:</p>
+        <p class="letterpress">nums1 = [1,2,3,0,0,0], m = 3</p>
+        <p class="letterpress">nums2 = [2,5,6],       n = 3</p>
+        <p class="letterpress">输出: [1,2,2,3,5,6]</p>
+        <div class="code_box">
+            <p class="code"></p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def merge(self, nums1, m, nums2, n):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type nums1: List[int]</p>
+            <p class="code">        :type m: int</p>
+            <p class="code">        :type nums2: List[int]</p>
+            <p class="code">        :type n: int</p>
+            <p class="code">        :rtype: None Do not return anything, modify nums1 in-place instead.</p>
+            <p class="code">        """</p>
+            <p class="code">        m = m - 1</p>
+            <p class="code">        n = n - 1</p>
+            <p class="code">        sum_mn = m + n + 1</p>
+            <p class="code">        while(m >= 0 and n >= 0):</p>
+            <p class="code">            if(nums1[m] >= nums2[n]):</p>
+            <p class="code">                nums1[sum_mn] = nums1[m]</p>
+            <p class="code">                m -= 1</p>
+            <p class="code">            else:</p>
+            <p class="code">                nums1[sum_mn] = nums2[n]</p>
+            <p class="code">                n -= 1</p>
+            <p class="code">            sum_mn -= 1</p>
+            <p class="code">        if (m <= 0):</p>
+            <p class="code">            for i in range(n + 1):</p>
+            <p class="code">                nums1[i] = nums2[i]</p>
+            <p class="code">        else:</p>
+            <p class="code">            for i in range(m + 1):</p>
+            <p class="code">                nums1[i] = nums1[i]</p>
+            <p class="code">        return nums1</p>
+            <p class="code"></p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0100">0100 .相同的树</p>
+        <p class="letterpress">给定两个二叉树，编写一个函数来检验它们是否相同。</p>
+        <p class="letterpress">如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。</p>
+        <p class="letterpress">示例&nbsp;1:</p>
+        <p class="letterpress">输入:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1,2,3],&nbsp;&nbsp;&nbsp;[1,2,3]</p>
+        <p class="letterpress">输出:&nbsp;true</p>
+        <p class="letterpress">示例&nbsp;2:</p>
+        <p class="letterpress">输入:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1,2],&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1,null,2]</p>
+        <p class="letterpress">输出:&nbsp;false</p>
+        <p class="letterpress">示例&nbsp;3:</p>
+        <p class="letterpress">输入:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;2</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1,2,1],&nbsp;&nbsp;&nbsp;[1,1,2]</p>
+        <p class="letterpress">输出:&nbsp;false</p>
+        <div class="code_box">
+            <p class="code"></p>
+            <p class="code">class TreeNode(object):</p>
+            <p class="code">    def __init__(self, val=0, left=None, right=None):</p>
+            <p class="code">        self.val = val</p>
+            <p class="code">        self.left = left</p>
+            <p class="code">        self.right = right</p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def isSameTree(self, p, q):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type p: TreeNode</p>
+            <p class="code">        :type q: TreeNode</p>
+            <p class="code">        :rtype: bool</p>
+            <p class="code">        """</p>
+            <p class="code">        if (p == None and q == None):</p>
+            <p class="code">            return True</p>
+            <p class="code">        if (p == None and q != None) or (p != None and q == None):</p>
+            <p class="code">            return False</p>
+            <p class="code">        if (p.val != q.val):</p>
+            <p class="code">            return False</p>
+            <p class="code">        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)</p>
+            <p class="code"></p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0101">0101 .对称二叉树</p>
+        <p class="letterpress">给定一个二叉树，检查它是否是镜像对称的。</p>
+        <p class="letterpress">例如，二叉树&nbsp;[1,2,2,3,4,4,3]&nbsp;是对称的。</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;2</p>
+        <p class="letterpress">&nbsp;/&nbsp;\&nbsp;/&nbsp;\</p>
+        <p class="letterpress">3&nbsp;&nbsp;4&nbsp;4&nbsp;&nbsp;3</p>
+        <p class="letterpress">但是下面这个&nbsp;[1,2,2,null,3,null,3]&nbsp;则不是镜像对称的:</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;2</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;3</p>
+        <p class="letterpress">进阶：</p>
+        <p class="letterpress">你可以运用递归和迭代两种方法解决这个问题吗？</p>
+        <p class="letterpress">Definition&nbsp;for&nbsp;a&nbsp;binary&nbsp;tree&nbsp;node.</p>
+        <div class="code_box">
+            <p class="code">class TreeNode(object):</p>
+            <p class="code">    def __init__(self, x):</p>
+            <p class="code">        self.val = x</p>
+            <p class="code">        self.left = None</p>
+            <p class="code">        self.right = None</p>
+            <p class="code"></p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def isSymmetric(self, root):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type root: TreeNode</p>
+            <p class="code">        :rtype: bool</p>
+            <p class="code">        """</p>
+            <p class="code">        def a(node1, node2):</p>
+            <p class="code">            if (node1 == None and node2 == None):</p>
+            <p class="code">                return True</p>
+            <p class="code">            if (node1 == None or node2 == None):</p>
+            <p class="code">                return False</p>
+            <p class="code">            if (node1.val != node2.val):</p>
+            <p class="code">                return False</p>
+            <p class="code">            return a(node1.left, node2.right) and a(node1.right, node2.left)</p>
+            <p class="code">        return a(root, root)</p>
+            <p class="code">    </p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0104">0104 .二叉树的最大深度</p>
+        <p class="letterpress">给定一个二叉树，找出其最大深度。</p>
+        <p class="letterpress">二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+        <p class="letterpress">说明:&nbsp;叶子节点是指没有子节点的节点。</p>
+        <p class="letterpress">示例：</p>
+        <p class="letterpress">给定二叉树&nbsp;[3,9,20,null,null,15,7]，</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;3</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;9&nbsp;&nbsp;20</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;7</p>
+        <p class="letterpress">返回它的最大深度&nbsp;3&nbsp;。</p>
+        <div class="code_box">
+            <p class="code"></p>
+            <p class="code">class TreeNode(object):</p>
+            <p class="code">    def __init__(self, x):</p>
+            <p class="code">        self.val = x</p>
+            <p class="code">        self.left = None</p>
+            <p class="code">        self.right = None</p>
+            <p class="code"></p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def maxDepth(self, root):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type root: TreeNode</p>
+            <p class="code">        :rtype: int</p>
+            <p class="code">        """</p>
+            <p class="code">        i = 0</p>
+            <p class="code">        def a(node, i):</p>
+            <p class="code">            if (node == None):</p>
+            <p class="code">                return i</p>
+            <p class="code">            else:</p>
+            <p class="code">                le = a(node.left, i+1)</p>
+            <p class="code">                ri = a(node.right, i+1)</p>
+            <p class="code">                return le if le > ri else ri</p>
+            <p class="code">        return a(root, i)</p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================分界线=================== -->
+        <p class="letterpress_title" id="0107">0107 .二叉树的层次遍历 II</p>
+        <p class="letterpress">给定一个二叉树，返回其节点值自底向上的层次遍历。&nbsp;（即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）</p>
+        <p class="letterpress">例如：</p>
+        <p class="letterpress">给定二叉树&nbsp;[3,9,20,null,null,15,7],</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;3</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;/&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;9&nbsp;&nbsp;20</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\</p>
+        <p class="letterpress">&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;7</p>
+        <p class="letterpress">返回其自底向上的层次遍历为：</p>
+        <p class="letterpress">[</p>
+        <p class="letterpress">&nbsp;&nbsp;[15,7],</p>
+        <p class="letterpress">&nbsp;&nbsp;[9,20],</p>
+        <p class="letterpress">&nbsp;&nbsp;[3]</p>
+        <p class="letterpress">]</p>
+        <div class="code_box">
+            <p class="code">class TreeNode(object):</p>
+            <p class="code">    def __init__(self, x):</p>
+            <p class="code">        self.val = x</p>
+            <p class="code">        self.left = None</p>
+            <p class="code">        self.right = None</p>
+            <p class="code"></p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def levelOrderBottom(self, root):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type root: TreeNode</p>
+            <p class="code">        :rtype: List[List[int]]</p>
+            <p class="code">        """</p>
+            <p class="code">        if (root == None):</p>
+            <p class="code">            return []</p>
+            <p class="code">        queue = [root]</p>
+            <p class="code">        lis = []</p>
+            <p class="code">        while(queue):</p>
+            <p class="code">            li = [] </p>
+            <p class="code">            for l in range(len(queue)):</p>
+            <p class="code">                node = queue.pop(0)</p>
+            <p class="code">                li.append(node.val)</p>
+            <p class="code">                if (node.left != None):</p>
+            <p class="code">                    queue.append(node.left)</p>
+            <p class="code">                if (node.right != None):</p>
+            <p class="code">                    queue.append(node.right)</p>
+            <p class="code">            lis.append(li)</p>
+            <p class="code">        return lis[::-1]</p>
+            <p class="code"></p>
+        </div>
+        <!-- ===================底线=================== -->
+        <p class="letterpress">&nbsp;</p>
+    </div>
+</body>
+</html>

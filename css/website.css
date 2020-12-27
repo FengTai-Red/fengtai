@@ -1,0 +1,48 @@
+/*
+网站部分
+*/
+#website {
+    background-color: rgba(102, 204, 255, .5);
+    border-radius: 7px
+}
+.websites {
+    width: 1000px;
+    margin: 30px auto;
+}
+.website_box {
+    width: 900px;
+    margin: 0 auto;
+    font-size: 31px;
+    color: #ffffff;
+}
+.website {
+    float: left;
+    width: 200px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 17px;
+    background-color: rgba(200, 200, 200, .5);
+}
+.website img {
+    float: left;
+    height: 50%;
+    margin: 20px 13px;
+}
+.website a {
+    float: left;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 80px;
+    width: 130px;
+    padding-top: 10px;
+}
+.website h4 {
+    color: #000000;
+    white-space: nowrap;
+    font-size: 19px;
+}
+.website p {
+    color: #333333;
+    font-size: 13px;
+    line-height: 19px;
+}

@@ -1,0 +1,77 @@
+/*
+博客内容部分
+*/
+#live2dcanvas {
+    /* 偷来的看板娘 */
+    border: 0 !important;
+}
+.user {
+    /* 用户界面 */
+    position: fixed;
+    width: 230px;
+    height: 350px;
+    margin-top: 50px;
+    margin-left: 100px;
+    border-radius: 19px;
+    background-color: #66ccff;
+}
+.article {
+    width: 50%;
+    margin: 50px auto;
+    background-color: rgba(200, 200, 200, 0.7);
+}
+.article .bg {
+    width: 100%;
+}
+.article .title {
+    font-size: 31px;
+    line-height: 80px;
+    text-align: center;
+    color: #000000;
+}
+.article .snapshot{
+    display: block;
+    margin: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-indent: 2em;
+    font-size: 13px;
+}
+.article .time{
+    display: block;
+    margin-left: 500px;
+    line-height: 23px;
+}
+.article .letterpress {
+    display: block;
+    word-wrap: break-word;
+    margin: 10px 10px 0px 10px;
+    text-indent: 2em;
+    font-size: 17px;
+    color: #333333;
+    word-break: break-all;
+}
+.article .illustration {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+}
+.article .passage {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 23px;
+    color: #333333;
+    border-bottom: 2px solid #333333;
+}
+.article .code_box {
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    overflow: auto;
+    background-color: rgba(77, 77, 77, 0.7);
+}
+.code_box .code {
+    white-space : pre;
+    color: #000000;
+}

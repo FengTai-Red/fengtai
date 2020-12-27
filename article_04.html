@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/galleryCompress/04.jpg" alt="">
+        <h3 class="title">Python的网站优化</h3>
+        <h6 class="snapshot">
+            毕竟算是第一次做网页，问题还是有的，刚好有学Python，就写了个小脚本。
+        </h6>
+        <p class="time">2020/03/30</p>
+        <h4 class="passage">Python压缩图片</h4>
+        <p class="letterpress">我的第一个用户向我反映了网站加载过慢的问题，除了服务器的问题以外，主要还是我网站的使用图片太大了。所以写了个简单的Python脚本来进行图片的批量压缩</p>
+        <p class="letterpress">首先要在新建一个文件夹，然后在里面再建两个文件夹，文件名分别为'A'、'B',然后再新建一个'.py'文件，把要压缩的图片放入'A'文件夹，输入以下代码：</p>
+        <div class="code_box">
+            <p class="code">from PIL import Image</p>
+            <p class="code">import os</p>
+            <p class="code"></p>
+            <p class="code">def conpreess(files):</p>
+            <p class="code">    # 缩小图片</p>
+            <p class="code">    i = 0</p>
+            <p class="code">    for file in files:</p>
+            <p class="code">        imgName = files[0].split('A_image')[-1]</p>
+            <p class="code">        img = Image.open(file)</p>
+            <p class="code">        img = img.convert("RGB")</p>
+            <p class="code">        weith = img.size[0]</p>
+            <p class="code">        height = img.size[1]</p>
+            <p class="code">        img.thumbnail((int(weith/3), int(height/3)))</p>
+            <p class="code">        img.save("B_image\\" + imgName)</p>
+            <p class="code">        i += 1</p>
+            <p class="code">        print("共{0}张，完成{1}张".format(len(files), i))</p>
+            <p class="code"></p>
+            <p class="code">def get_all_files(dir, suffix = ["jpg"]):</p>
+            <p class="code">    # 返回目录下所有指定后缀文件的绝对路径</p>
+            <p class="code">    files_ = []</p>
+            <p class="code">    list = os.listdir(dir)</p>
+            <p class="code">    for i in range(0, len(list)):</p>
+            <p class="code">        path = os.path.join(dir, list[i])</p>
+            <p class="code">        if os.path.isdir(path):</p>
+            <p class="code">            files_.extend(get_all_files(path))</p>
+            <p class="code">        if os.path.isfile(path):</p>
+            <p class="code">            if path.split('.')[-1] in suffix:</p>
+            <p class="code">                files_.append(path)</p>
+            <p class="code">    return files_</p>
+            <p class="code"></p>
+            <p class="code"></p>
+            <p class="code">if __name__ == "__main__":</p>
+            <p class="code">    work_dir = os.getcwd() + "\A_image"</p>
+            <p class="code">    files = get_all_files(work_dir)</p>
+            <p class="code">    conpreess(files)</p>
+            <p class="code">    print("OK")</p>
+        </div>
+        <p class="letterpress">直接然后运行'.py'就行了，只试了jpg格式的。生成的图片会在'B'文件夹中。</p>
+        <h4 class="passage">将代码写入HTML标签中</h4>
+        <p class="letterpress">就在我在html中输入上面的字符的时候，我发现输入个麻烦的事，因为是只靠html和css写的，要把每一行代码都写在html的标签中，需要不断的复制粘贴，于是又写了个将代码写入html标签中的脚本。</p>
+        <p class="letterpress">首先还是建立一个文件夹，里面放入要写的html标签的代码文件，然后再建一个'.py'文件，输入以下代码：</p>
+        <div class="code_box">
+            <p class="code">import os</p>
+            <p class="code"></p>
+            <p class="code">def code2Html(filename):</p>
+            <p class="code">    # 将.py文件每行写入Html的标签里</p>
+            <p class="code">    file_list = []</p>
+            <p class="code">    line = ""</p>
+            <p class="code">    files = []</p>
+            <p class="code">    with open(filename, 'r', encoding='UTF-8') as file:</p>
+            <p class="code">        for file_line in file:</p>
+            <p class="code">            for file_byte in file_line:</p>
+            <p class="code">                file_list.append(file_byte)  # 将文件中以每个字符的形式保存成列表</p>
+            <p class="code">    for i in range(0, len(file_list)):</p>
+            <p class="code">        if file_list[i] == "&lt;":</p>
+            <p class="code">            file_list[i] = "&lt;"</p>
+            <p class="code">        if file_list[i] == "&gt;":</p>
+            <p class="code">            file_list[i] = "&gt;"</p>
+            <p class="code">        if file_list[i] != "\n":</p>
+            <p class="code">            line = line + (file_list[i])  # 将字符组成行</p>
+            <p class="code">        else:</p>
+            <p class="code">            files.append(line)</p>
+            <p class="code">            line = ""</p>
+            <p class="code">    for a in files:</p>
+            <p class="code">        htmls = []</p>
+            <p class="code">        a = "&lt;p class=\"code\"&gt;"</p>
+            <p class="code">        b = "&lt;/p&gt;"</p>
+            <p class="code">        for c in files:</p>
+            <p class="code">            s = a + c + b + '\n'</p>
+            <p class="code">            htmls.append(s)</p>
+            <p class="code">        with open("htmls.txt", 'w', encoding='UTF-8') as file:</p>
+            <p class="code">            for html in htmls:</p>
+            <p class="code">                file.write(html)</p>
+            <p class="code">if __name__ == "__main__":</p>
+            <p class="code">    code2Html('code2html.py')</p>
+        </div>
+        <p class="letterpress">主要是要把加括号进行转换，如果css属性没有加'white-space : pre;'的话，那空格也要进行转换，在第12行下面加一个判断是空格转成html中空格的符号的代码就行了</p>
+        <p class="letterpress">然后我又改了一下，用于生成图库的html代码，比较简单，也贴出来：</p>
+        <div class="code_box">
+            <p class="code">def gallery_html():</p>
+            <p class="code">    # 批量输出HTML语句</p>
+            <p class="code">    a = "&lt;li class=\"gallery\"&gt;\n"</p>
+            <p class="code">    bList = []</p>
+            <p class="code">    for i in range(0, 96):</p>
+            <p class="code">        if i &lt; 10:</p>
+            <p class="code">            b = "    &lt;a href=\"image/gallery/0{0}.jpg\" target=\"_blank\"&gt;&lt;img src=\"image/galleryCompress/0{1}.jpg\" alt=\"\"&gt;&lt;/a&gt;\n".format(i, i)</p>
+            <p class="code">        else:</p>
+            <p class="code">            b = "    &lt;a href=\"image/gallery/{0}.jpg\" target=\"_blank\"&gt;&lt;img src=\"image/galleryCompress/{1}.jpg\" alt=\"\"&gt;&lt;/a&gt;\n".format(i, i)</p>
+            <p class="code">        bList.append(b)</p>
+            <p class="code">    c = "&lt;/li&gt;"</p>
+            <p class="code">    with open("htmls.txt", 'w', encoding='UTF-8') as file:</p>
+            <p class="code">        for html in bList:</p>
+            <p class="code">            file.write(html)</p>
+            <p class="code">if __name__ == "__main__":</p>
+            <p class="code">    gallery_html()</p>
+        </div>
+    </div>
+</body>
+</html>

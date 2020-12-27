@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/07.jpg" alt="">
+        <h3 class="title">Java的IO流</h3>
+        <h6 class="snapshot">
+            IO是指Input/Output，即输入和输出。Input指从外部读入数据到内存，例如，把文件从磁盘读取到内存，从网络读取数据到内存等等。Output指把数据从内存输出到外部，例如，把数据从内存写入到文件，把数据从内存输出到网络等等。
+        </h6>
+        <p class="time">2020/04/30</p>
+
+        <h4 class="passage">InputStream</h4>
+        <p class="letterpress">InputStream是字节输入流，主要成员如下：</p>
+        <div class="code_box">
+            <p class="code">FileInputStream           ---文件字节输入流(用于从文件读取字节数据)</p>
+            <p class="code">ByteArrayInputStream      ---字节数组输入流</p>
+            <p class="code">BufferedInputStream       ---字节缓冲输入流</p>
+            <p class="code">DataInputStream           ---数据输入流(允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型)</p>
+            <p class="code">ObjectInputStream         ---将对象的原始数据序列化</p>
+        </div>
+
+        <h4 class="passage">OutputStream</h4>
+        <p class="letterpress">OutputStream是字节输出流，主要成员如下：</p>
+        <div class="code_box">
+            <p class="code">FileOutputStream          ---文件字节输入流(用于从文件读取字节数据)</p>
+            <p class="code">ByteArrayOutputStream     ---字节数组输入流</p>
+            <p class="code">BufferedOutputStream      ---字节缓冲输入流</p>
+            <p class="code">DataOutputStream          ---数据输入流(允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型)</p>
+            <p class="code">ObjectOutputStream        ---将对象的原始数据序列化</p>
+        </div>
+
+        <h4 class="passage">Reader</h4>
+        <p class="letterpress">Reader是字符输入流，主要成员如下：</p>
+        <div class="code_box">
+            <p class="code">FileReader                ---文件字符输入流(用于从文件读取字符数据)</p>
+            <p class="code">BufferedReader            ---字符缓冲输入流</p>
+            <p class="code">InputStreamReader         ---从字节流到字符流的桥梁(读取字节，将其解码为字符)</p>
+        </div>
+
+        <h4 class="passage">Writer</h4>
+        <p class="letterpress">Writer是字符输出流，主要成员如下：</p>
+        <div class="code_box">
+            <p class="code">FileWriter                ---文件符输出流(创建一个文件并向文件中写字符数据)</p>
+            <p class="code">BufferedWriter            ---字符缓冲输出流</p>
+            <p class="code">OutputStreamWriter        ---从字节流到字符流的桥梁(读取字符，将其编码为字节，然后输出)</p>
+        </div>
+
+        <h4 class="passage">基本流程</h4>
+        <p class="letterpress">以拷贝文件为例，主要分为四步，1. 创建源、2. 选择流、3. 操作(IO)、4. 释放资源(close)</p>
+        <div class="code_box">
+                <p class="code">static void byteBufferedCopy(String srcPath, String destPath) {</p>
+                <p class="code">    File src = new File(srcPath);  // 创建源(读取)</p>
+                <p class="code">    File dest = new File(destPath);  // 创建源(写入)</p>
+                <p class="code">    try(InputStream is = new BufferedInputStream(new FileInputStream(src));  // 选择流，加上BufferedInputStream以提高性能</p>
+                <p class="code">        OutputStream os = new BufferedOutputStream(new FileOutputStream(dest))) {  // 异常抑制方法：JDK1.7之后的try-with-resource处理机制，当这个try-catch代码块执行完毕后，Java会确保外部资源的close方法被调用，无需再使用close关闭</p>
+                <p class="code">        byte[] flush = new byte[1024];   // 缓冲容器，即每次读取的长度(单位字节，尽量使用1024*xx的格式)</p>
+                <p class="code">        int len = -1;  // 接收长度</p>
+                <p class="code">        while ((len = is.read(flush)) != -1) {  // 操作(读取) </p>
+                <p class="code">            os.write(flush, 0, len);  // 操作(输出))</p>
+                <p class="code">        }</p>
+                <p class="code">        os.flush();  // 清空缓冲区数据，把缓冲区的数据强行输出</p>  
+                <p class="code">        System.out.println("拷贝完成");</p>
+                <p class="code">    } catch (IOException e) {</p>
+                <p class="code">        e.printStackTrace();</p>
+                <p class="code">    }</p>
+                <p class="code">}</p>
+                <p class="code"></p>
+        </div>
+        <p class="letterpress">也可以使用第三方库，CommonsIO，去 http://commons.apache.org/ 找到CommonsIO，下载相应的jre即可。</p>
+        <div class="code_box">
+            <p class="code">FileUtils.copyFile(new File("要拷贝的文件路径"),new File("存放的路径"));</p>
+        </div>
+        <p class="letterpress">没错，一行代码就行了</p>
+        <p class="letterpress"></p>
+    </div>
+</body>
+</html>

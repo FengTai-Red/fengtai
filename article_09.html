@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/09.jpg" alt="">
+        <h3 class="title">Python爬取番剧封面</h3>
+        <h6 class="snapshot">
+            不知道为什么，就是想爬。学了一段时间JAVA再去写Python有些不适应，开始变量加了类型 int a = 1，报错了一时间竟然没有意识到哪里错了。看来真理不能忘---"Pyhton中一切皆对象"
+        </h6>
+        <p class="time">2020/05/10</p>
+
+        <h4 class="passage">爬取B站追番的封面</h4>
+        <p class="letterpress">bilibili很多是有接口的，个人空间的也有，这点很不错，所以直接去接口拿数据就好了，地址：http://api.bilibili.com/x/space/bangumi/follow/list?type=1&follow_status=3&pn=1&ps=50&vmid=</p>
+        <p class="letterpress">其中vmid的值为自己的UID，其他的值如下</p>
+        <div class="code_box">
+            <p class="code"># type -&gt; 1-追番 2-追剧</p>
+            <p class="code"># follow_status -&gt; 2-在看 0-全部 3-看过</p>
+            <p class="code"># pn -&gt; 第几页</p>
+            <p class="code"># ps  -&gt; 页面显示数目</p>
+        </div>
+        <p class="letterpress">进去后就可以看到相应的信息了，当然B站主站要有登入。</p>
+        <p class="letterpress">数据放的还算清晰，这次要爬的数据在"data"键中的"list"键中，要爬的数据为番剧的名称和封面，对应的键值为"title"和"cover"</p>
+        <p class="letterpress">知道这些就可以开始写了，先把番剧名称和番剧封面的数据分别放入列表，然后下载封面就好了，代码如下：</p>
+        <div class="code_box">
+            <p class="code">import requests</p>
+            <p class="code">import json</p>
+            <p class="code">import sys</p>
+            <p class="code"></p>
+            <p class="code">def main():</p>
+            <p class="code">    # 把???换成自己的UID</p>
+            <p class="code">    vmid = "???"</p>
+            <p class="code">    # 把???换成自己的cookie</p>
+            <p class="code">    cookie = "???"</p>
+            <p class="code">    animation_name, animation_img = get_date(vmid, cookie)</p>
+            <p class="code">    download(animation_name, animation_img)</p>
+            <p class="code"></p>
+            <p class="code">def get_date(vmid, cookie):</p>
+            <p class="code">    animation_name = []  # 存储名称</p>
+            <p class="code">    animation_img = []  # 存储图片地址</p>
+            <p class="code">    pn = 1  # 页数</p>
+            <p class="code">    flag = True</p>
+            <p class="code">    while (flag):</p>
+            <p class="code">        url = 'http://api.bilibili.com/x/space/bangumi/follow/list?type=1&follow_status=3&pn={}&ps=50&vmid={}'.format(pn, vmid)</p>
+            <p class="code">        #====参数说明===</p>
+            <p class="code">        # type -&gt; 1-追番 2-追剧</p>
+            <p class="code">        # follow_status -&gt; 2-在看 0-全部 3-看过</p>
+            <p class="code">        # pn -&gt; 第几页</p>
+            <p class="code">        # ps  -&gt; 页面显示数目</p>
+            <p class="code">        # vmid -&gt; 用户的UID</p>
+            <p class="code">        header = {</p>
+            <p class="code">            "Cookie": cookie</p>
+            <p class="code">        } # Cookie信息</p>
+            <p class="code">        req = requests.get(url=url,headers = header)</p>
+            <p class="code">        user_data = json.loads(req.text)</p>
+            <p class="code">        for key, value in user_data.items():</p>
+            <p class="code">            if key == "data":</p>
+            <p class="code">                for data_key, date_value in value.items():</p>
+            <p class="code">                    if data_key == "list":</p>
+            <p class="code">                        if date_value != []:</p>
+            <p class="code">                            for i in range(0, len(date_value)):</p>
+            <p class="code">                                for list_key, list_value in date_value[i].items():</p>
+            <p class="code">                                    if(list_key == "title"):</p>
+            <p class="code">                                        animation_name.append(list_value)</p>
+            <p class="code">                                    if(list_key == "cover"):</p>
+            <p class="code">                                        animation_img.append(list_value)</p>
+            <p class="code">                        else:</p>
+            <p class="code">                            flag = False</p>
+            <p class="code">                            break</p>
+            <p class="code">        pn += 1</p>
+            <p class="code">    return animation_name, animation_img</p>
+            <p class="code"></p>
+            <p class="code">def download(animation_name, animation_img):</p>
+            <p class="code">    print("当前已看番剧为{}部".format(len(animation_name)))</p>
+            <p class="code">    print("开始下载")</p>
+            <p class="code">    for i in range(len(animation_name)):</p>
+            <p class="code">        html = requests.get(animation_img[i])</p>
+            <p class="code">        im = html.content</p>
+            <p class="code">        animation_name[i] = animation_name[i].replace("/", " ")  # 换掉文件名不支持的字符</p>
+            <p class="code">        animation_name[i] = animation_name[i].replace(":", " ")</p>
+            <p class="code">        filename = "bilibili/img/" + animation_name[i] + ".jpg"</p>
+            <p class="code">        with open(filename, 'wb')as f:</p>
+            <p class="code">            f.write(im)</p>
+            <p class="code">        sys.stdout.write("开始下载番剧封面...已下载:{0:.2f}".format(float((i+1)/len(animation_img)*100)) + "%" + '\r')</p>
+            <p class="code">    print("下载完成")</p>
+            <p class="code"></p>
+            <p class="code"></p>
+            <p class="code">if __name__ == '__main__':</p>
+        </div>
+        <p class="letterpress">运行上面的代码，就可以下载自己追番的番剧的封面了</p>
+        <p class="letterpress">这个获取"title"和"cover"的数据结构有点深，但没办法，它就是藏在这么深里面。也可以直接用正则获取数据，代码应该会少一点，然而我正则不是很熟，就这样吧</p>
+        <p class="letterpress">要获取其他的番剧信息自己换下键值就好了</p>
+    </div>
+</body>
+</html>

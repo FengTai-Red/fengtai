@@ -1,0 +1,119 @@
+<div class="code_box">
+    <p class="code">import shutil</p>
+    <p class="code">import os</p>
+    <p class="code">import tkinter as tk</p>
+    <p class="code">import win32api</p>
+    <p class="code"></p>
+    <p class="code">class Application(tk.Frame):</p>
+    <p class="code"></p>
+    <p class="code">    def __init__(self, master = None):</p>
+    <p class="code">        super().__init__(master)</p>
+    <p class="code">        self.project_name = "S630Ajax"</p>
+    <p class="code">        self.java_project_dir = r"D:\File\Java\SXT\07"</p>
+    <p class="code">        self.tomcat_project_dir = r"D:\File\Java\Tomacat\apache-tomcat-9.0.37"</p>
+    <p class="code">        self.master = master</p>
+    <p class="code">        self.pack()</p>
+    <p class="code">        self.create_widget()</p>
+    <p class="code"></p>
+    <p class="code">    def create_widget(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        定义按钮</p>
+    <p class="code">        """</p>
+    <p class="code">        self.btn01 = tk.Button(root, text = "启动服务", width = 7, height = 2, command = self.startup)</p>
+    <p class="code">        self.btn02 = tk.Button(root, text = "停止服务", width = 7, height = 2, command = self.shutdown)</p>
+    <p class="code">        self.btn03 = tk.Button(root, text = "加载文件", width = 7, height = 2, command = self.load_file)</p>
+    <p class="code">        self.btn01.pack(side = "left", padx = "10")</p>
+    <p class="code">        self.btn02.pack(side = "left", padx = "10")</p>
+    <p class="code">        self.btn03.pack(side = "left", padx = "10")</p>
+    <p class="code"></p>
+    <p class="code">    def startup(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        开启服务</p>
+    <p class="code">        """</p>
+    <p class="code">        file_path = self.tomcat_project_dir + r'\bin\startup.bat'</p>
+    <p class="code">        result = win32api.ShellExecute(0, 'open', file_path, '', '', 0)</p>
+    <p class="code">        if (result &gt; 32):</p>
+    <p class="code">            print("服务启动:" + str(result))</p>
+    <p class="code"></p>
+    <p class="code">    def shutdown(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        停止服务</p>
+    <p class="code">        """</p>
+    <p class="code">        file_path = self.tomcat_project_dir + r'\bin\shutdown.bat'</p>
+    <p class="code">        result= win32api.ShellExecute(0, 'open', file_path, '', '', 0)</p>
+    <p class="code">        if (result &gt; 32):</p>
+    <p class="code">            print("服务关闭:" + str(result))</p>
+    <p class="code"></p>
+    <p class="code">    def load_file(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        导入文件</p>
+    <p class="code">        """</p>
+    <p class="code">        pass</p>
+    <p class="code">        # self.load_xml_file()</p>
+    <p class="code">        self.load_class_file()</p>
+    <p class="code">        self.load_web_file()</p>
+    <p class="code"></p>
+    <p class="code">    def load_xml_file(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        导入web.xml文件</p>
+    <p class="code">        """</p>
+    <p class="code">        print(self.project_name)</p>
+    <p class="code">        file_source_directory = self.java_project_dir + "\src\{0}\web.xml".format(self.project_name)</p>
+    <p class="code">        file_destination_directory = r"D:\File\Java\Tomacat\apache-tomcat-9.0.37\webapps\FengTai\WEB-INF"</p>
+    <p class="code">        shutil.copy(file_source_directory, file_destination_directory)</p>
+    <p class="code"></p>
+    <p class="code">    def load_class_file(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        导入class文件</p>
+    <p class="code">        """</p>
+    <p class="code">        file_source_directory = self.java_project_dir + "\\bin\{0}".format(self.project_name)</p>
+    <p class="code">        file_destination_directory = self.tomcat_project_dir + "\webapps\FengTai\WEB-INF\classes\{0}".format(self.project_name)</p>
+    <p class="code">        file_type = ["class"]</p>
+    <p class="code">        self.getDirAndCopyFile(file_source_directory, file_destination_directory, file_type)</p>
+    <p class="code"></p>
+    <p class="code">    def load_web_file(self):</p>
+    <p class="code">        """</p>
+    <p class="code">        导入Web文件</p>
+    <p class="code">        """</p>
+    <p class="code">        file_source_directory = self.java_project_dir + "\src\{0}".format(self.project_name)</p>
+    <p class="code">        file_destination_directory = self.tomcat_project_dir + "\webapps\FengTai\{0}".format(self.project_name)</p>
+    <p class="code">        file_type = ["jsp", "css", "js", "jpg", "ico", "png", "gif"]</p>
+    <p class="code">        self.getDirAndCopyFile(file_source_directory, file_destination_directory, file_type)</p>
+    <p class="code"></p>
+    <p class="code">    def getDirAndCopyFile(self, sourcePath,targetPath,file_type):</p>
+    <p class="code">        """</p>
+    <p class="code">        利用递归实现目录的遍历</p>
+    <p class="code">        @para sourcePath:原文件目录</p>
+    <p class="code">        @para targetPath:目标文件目录</p>
+    <p class="code">        """</p>
+    <p class="code">        if not os.path.exists(sourcePath):</p>
+    <p class="code">            return</p>
+    <p class="code">        if not os.path.exists(targetPath):</p>
+    <p class="code">            os.makedirs(targetPath)</p>
+    <p class="code">        for fileName in os.listdir(sourcePath):</p>
+    <p class="code">            absourcePath = os.path.join(sourcePath, fileName)</p>
+    <p class="code">            abstargetPath = os.path.join(targetPath, fileName)</p>
+    <p class="code">            if os.path.isdir(absourcePath):</p>
+    <p class="code">                if (not os.path.exists(absourcePath)):</p>
+    <p class="code">                    os.makedirs(abstargetPath)</p>
+    <p class="code">                self.getDirAndCopyFile(absourcePath, abstargetPath, file_type)</p>
+    <p class="code">            if os.path.isfile(absourcePath) and (absourcePath.split(".")[-1] in file_type):</p>
+    <p class="code">                print("复制文件:" + absourcePath)</p>
+    <p class="code">                rbf = open(absourcePath, "rb")</p>
+    <p class="code">                wbf = open(abstargetPath, "wb")</p>
+    <p class="code">                while True:</p>
+    <p class="code">                    content = rbf.readline(1024*1024)</p>
+    <p class="code">                    if len(content)==0:</p>
+    <p class="code">                        break</p>
+    <p class="code">                    wbf.write(content)</p>
+    <p class="code">                    wbf.flush()</p>
+    <p class="code">                rbf.close()</p>
+    <p class="code">                wbf.close()</p>
+    <p class="code"></p>
+    <p class="code">if __name__ == "__main__":</p>
+    <p class="code">    root = tk.Tk()</p>
+    <p class="code">    root.geometry("240x50+1110+640")  # 窗口大小(长*宽+距离屏幕左边+距离屏幕上边)</p>
+    <p class="code">    root.title("Tomcat")  # 标题</p>
+    <p class="code">    app = Application(master = root)</p>
+    <p class="code">    root.mainloop()</p>
+</div>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/galleryCompress/03.jpg" alt="">
+        <h3 class="title">建站过程</h3>
+        <h6 class="snapshot">
+            原本是在进行Python的项目学习，基本都是小项目，然而其中有个项目是使用Flask搭建网页，于是照着Flask中文教程编写了一个小Blog。然后又是参考又是查资料的完成了这个小项目，做完之后便想搭建一个自己的Blog。
+        </h6>
+        <p class="time">2020/03/28</p>
+        <h4 class="passage">构建网页</h4>
+        <p class="letterpress">首先是构建网页了，直接上B站下了一个HTML+CSS的教程，花了几天学习了一下。由于没有学JavaScript的关系（除了偷来的那个看板娘），这个网站基本没有互动功能，这些文章也是一个标签一个标签写的。然后又花了几天写出了这个网站，在学以致用的过程中发生了许多问题，但基本都解决了<p>
+        <h4 class="passage">购买服务器</h4>
+        <p class="letterpress">服务器其实在去年(2019)年就已经买了，买的是Vultr的服务器。当初也是为了搭建属于自己的网站，然而发生了许多意外，主要是能力不足(甚至网站模板都是直接复制别人的)，然后就终止了。这个服务器后来被我拿来搭建了VPN，后来发现还不如直接去买别人的划算，Vultr的最便宜的一个月5刀，买别人的一个月也就15软妹币。现在账号里还有9刀没用。</p>
+        <p class="letterpress">但是，为了方便访问，我又买了阿里的服务器，最低配的买了一周用做测试，如果可以或者日后想继续更新Blog在做其他打算吧</p>
+        <h4 class="passage">部署到服务器</h4>
+        <p class="letterpress">这是我在开始写这篇文章进行的步骤，当然是去参考了别人的步骤(av66944159)。</p>
+        <p class="letterpress">1.上传网页：下载FileZilla,输入IP及用户名和密码，在根目录下新建一个名为'www'的文件夹，将写好的网页上传到这个文件夹。</p>
+        <p class="letterpress">2.连接到服务器：下载一个Putty,输入IP连接到远程服务器，在弹出的黑窗中输入用户名和密码(输密码时是不可见的),后面的操作都是在这个窗口进行的。</p>
+        <p class="letterpress">3.安装nginx(先用'nginx -v'查看是否已经安装)：在CentOS 8中，要先拥有sudo特权。输入下面的命令来查看是否拥有。</p>
+        <div class="code_box">
+            <p class="code">sudo -l</p>
+        </div>
+        <p class="letterpress">没问题的话在检测主机上80端口有没有被占用，输入下面的命令来查看，没有回显就是正常的(Unix的哲学是“没有消息就是好消息”)。</p>
+        <div class="code_box">
+            <p class="code">netstat -tulpn | grep :80</p>
+        </div>
+        <p class="letterpress">没问题的话就可以安装nginx了，输入下面的命令，等待安装完成即可</p>
+        <div class="code_box">
+            <p class="code">sudo yum install -y nginx</p>
+        </div>
+        <p class="letterpress">4.启动nginx：首先要启用nginx服务器，以便主机启动后立即启动，先输入下面的命令来使Nginx服务在启动时启动。</p>
+        <div class="code_box">
+            <p class="code">sudo systemctl enable nginx</p>
+        </div>
+        <p class="letterpress">然后输入以下命令'来启动nginx。</p>
+        <div class="code_box">
+            <p class="code">sudo systemctl start nginx</p>
+        </div>
+        <p class="letterpress">可以输入下面的命令来查看是否已经启动(按q退出)</p>
+        <div class="code_box">
+            <p class="code">sudo systemctl status nginx</p>
+        </div>
+        <p class="letterpress">5.修改配置：输入以下命令来显示nginx的安装路径，根据路径在查找配置文件</p>
+        <div class="code_box">
+            <p class="code">ps -ef | grep nginx</p>
+        </div>
+        <p class="letterpress">然后根据上面的到的路径查找配置文件，输入以下命令(就是再路径后面加个-t)，那个is ok的就是路径的位置</p>
+        <div class="code_box">
+            <p class="code">/usr/sbin/nginx -t</p>
+        </div>
+        <p class="letterpress">然后根据上面的到的路径查找配置文件</p>
+        <p class="letterpress">接下来先定位到配置文件的位置。输入以下命令：</p>
+        <div class="code_box">
+            <p class="code">cd /etc/nginx</p>
+        </div>
+        <p class="letterpress">然后输入下面的命令来进入文件编辑配置，并进入编辑模式。</p>
+        <div class="code_box">
+            <p class="code">vim nginx.conf</p>
+        </div>
+        <p class="letterpress">进入nginx.conf后，(用方向键)定位到http-&gt;server-&gtlocation 这个位置，在location中添加网页的目录和主页，就向下面这样</p>
+        <div class="code_box">
+            <p class="code">location /{</p>
+            <p class="code">    root    /www/fengtai;</p>
+            <p class="code">    index    blog.html;</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">编辑完成后按Esc键退出编辑模式，然后输入下面命令来保存更改并退出。</p>
+        <div class="code_box">
+            <p class="code">:wq</p>
+        </div>
+        <p class="letterpress">接着输入下面的命令来确保编辑没有错误</p>
+        <div class="code_box">
+            <p class="code">nginx -t</p>
+        </div>
+        <p class="letterpress">最后重启nginx，就可以了，输入下面的命令：</p>
+        <div class="code_box">
+            <p class="code">nginx -s reload</p>
+        </div>
+        <p class="letterpress">7.去服务器开放nginx对应的端口(80)，输入地址就可以访问了</p>
+        <h4 class="passage">域名</h4>
+        <p class="letterpress">最后在将域名解析绑到地址就可以了，一个完整的Blog就基本建立好了。</p>
+        <p class="letterpress">&nbsp;</p>
+    </div>
+</body>
+</html>

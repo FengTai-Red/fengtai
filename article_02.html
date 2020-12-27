@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/galleryCompress/02.jpg" alt="">
+        <h3 class="title">Windows设置</h3>
+        <h6 class="snapshot">记录一些Windows的设置，不定期更新</h6>
+        <p class="time">2020/03/28</p>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage">索引</h4>
+        <p class="letterpress"><a href="#001">Win+R</a></p>
+        <p class="letterpress"><a href="#002">DOS</a></p>
+        <p class="letterpress"><a href="#003">服务的可执行路径</a></p>
+        <p class="letterpress"><a href="#004">隐藏磁盘</a></p>
+        <p class="letterpress"><a href="#005">删除分区</a></p>
+        <p class="letterpress"><a href="#006">隐藏'我的电脑'导航窗格的文件夹</a></p>
+        <p class="letterpress"><a href="#007">取消Cortana的网络搜索</a></p>
+        <p class="letterpress"><a href="#008">修改文件的权限</a></p>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="001">Win+R</h4>
+        <p class="letterpress">按下键盘的'Win'+'R'键打开运行窗，输入以下名称就可以快速打开一些电脑的程序</p>
+        <div class="code_box">
+            <p class="code">dxdiag -------诊断工具</p>
+            <p class="code">msconfig -----系统配置</p>
+            <p class="code">control ------控制面板</p>
+            <p class="code">regedit ------注册表</p>
+            <p class="code">explorer -----资源管理器</p>
+            <p class="code">gpedit.msc ---组策略</p>
+            <p class="code">service.msc --服务</p>
+            <p class="code">compmgmt.msc -计算机管理</p>
+            <p class="code">lusrmgr.msc --用户</p>
+            <p class="code">devmgmt.msc --设备管理</p>
+            <p class="code">diskmgmt.msc -磁盘管理</p>
+        </div>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="002">DOS</h4>
+        <p class="letterpress">一些DOS命令，可以输入'/?'或'help'来查看帮助</p>
+        <div class="code_box">
+            <p class="code">help -------DOS命令帮助</p>
+            <p class="code">ipconfig ---查看自身的网络配置 </p>
+            <p class="code">route ------管理自身的路由转发表（增删改查） </p>
+            <p class="code">arp --------查看主机存储的IP和MAC的映射 </p>
+            <p class="code">systeminfo -查看系统信息（带图像界面的输入msinfo32） </p>
+            <p class="code">tasklist ---查看当前进程列表 </p>
+            <p class="code">query ------查询进程 </p>
+            <p class="code">netstat ----查看网络状态（netstat -aon|findstr "80" 查看指定端口）</p>
+            <p class="code">net --------网络的功能</p>
+            <p class="code">netsh ------网络配置</p>
+        </div>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="003">服务的可执行路径</h4>
+        <p class="letterpress">有时移动了软件会导致服务的路径不对，这时就需要手动改一下</p>
+        <p class="letterpress">1.按下'win+r'打开运行程序输入'regedit'打开注册表编辑器</p>
+        <div class="code_box">
+            <p class="code">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</p>
+        </div>
+        <p class="letterpress">该目录下的每个文件都对应一个服务(大概)，每个文件下有一键名是“ImagePath”，就是服务的路径了，改成新的就行了</p>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="004">隐藏磁盘</h4>
+        <p class="letterpress">我的电脑有一个备份盘，又不能放东西，看着又难受，只好隐藏起来了。当然也可以隐藏一些不可见人的盘</p>
+        <p class="letterpress">1. 按下'win+r'打开运行程序输入'regedit'打开注册表编辑器</p>
+        <p class="letterpress">2.进入以下位置:</p>
+        <div class="code_box">
+            <p class="code">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer</p>
+        </div>
+        <p class="letterpress">3.在右边空白处右键，选择: 新建 -> DWORD(32位)值菜单项</p>
+        <p class="letterpress">4.将新建好的值重命名为'NoDrives'</p>
+        <p class="letterpress">5.双击NoDrives注册表键值，在弹出的编辑窗口中，修改基数为“十进制”，接着修改数值为32，这样就可以隐藏驱动器F盘，如果要隐藏其它的盘符，对应的数字为：A=1；B=2；C=4；D=8；E=16；F=32；G=64，以此类</p>
+        <p class="letterpress">6.然后重启exploerexe进程，按下'win+r'打开运行程序输入'cmd',进入DOS，依次输入以下两条命令(//后面的不要复制):</p>
+        <div class="code_box">
+            <p class="code">taskkill /f /im explorer.exe //结束explorer.exe进程</p>
+            <p class="code">start explorer.exe //开启explorer.exe进程</p>
+        </div>
+        <p class="letterpress">7. 如果要打开的话就按下'win+r'打开运行程序输入'F:\',F改成隐藏的那个盘</p>
+        <p class="letterpress">8. 要恢复的话把前面新建的注册表删除就好了</p>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="005">删除分区</h4>
+        <p class="letterpress">有些顽强的分区依靠磁盘管理程序是无法删除的，因为有些很重要。下面的方法可以强制删除，删除前要确定删了它对电脑使用没影响</p>
+        <p class="letterpress">按下'win+r'打开运行程序输入'cmd',进入DOS，依次输入以下几条命令(//后面的不要复制):</p>
+        <div class="code_box">
+            <p class="code">diskpart        //打开Diskpart</p>
+            <p class="code">list disk       //查看磁盘</p>
+            <p class="code">sel disk 0      // 选择磁盘，其中0可以换成其他的盘</p>
+            <p class="code">list part       //查看分区</p>
+            <p class="code">sel part 3      // 选择分区，其中3可以换成其他的盘</p>
+            <p class="code">delete partition override  //删除选择的分区</p>
+            <p class="code">exit        //退出</p>
+        </div>
+        <p class="letterpress">&nbsp</p>
+        <!-- =====================================190328===================================== -->
+        <h4 class="passage" id="006">隐藏'我的电脑'导航窗格的文件夹</h4>
+        <p class="letterpress">对我来说，只有D盘和C盘是需要快捷打开的，其他的多了只会碍眼。</p>
+        <p class="letterpress" style="display: inline;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp修改前:<img style="width: 20%;" src="image/article/02/a.jpg" alt=""></p>
+        <p class="letterpress" style="display: inline;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp修改后:<img style="width: 20%;" src="image/article/02/b.jpg" alt=""></p>
+        <p class="letterpress">1.新建一个txt文档，输入以下代码，然后保存，将后缀改成'.reg'</p>
+        <div class="code_box">
+            <p class="code">Windows Registry Editor Version 5.00</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}]</p>
+            <p class="code">[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}]</p>
+        </div>
+        <p class="letterpress">2.然后运行它，可能会出现一些弹窗，全点确定，然后下面是代码对应的文件，可以选择性的增减:</p>
+        <div class="code_box">
+            <p class="code">0DB7E03F-FC29-4DC6-9020-FF41B59E513A --3D 对象</p>
+            <p class="code">f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a --视频文件夹</p>
+            <p class="code">24ad3ad4-a569-4530-98e1-ab02f9417aa8 --图片文件夹</p>
+            <p class="code">d3162b92-9365-467a-956b-92703aca08af --文档文件夹</p>
+            <p class="code">088e3905-0323-4b02-9826-5d99428e115f --下载文件夹</p>
+            <p class="code">3dfdf296-dbec-4fb4-81d1-6a3438bcf4de --音乐文件夹</p>
+            <p class="code">B4BFCC3A-DB2C-424C-B029-7FE99A87C641 --桌面文件夹</p>
+        </div>
+        <p class="letterpress">3.如果不习惯，或者想它们了，就按上面的步骤在来一次，只不过代码改成下面的:</p>
+        <div class="code_box">
+            <p class="code">Windows Registry Editor Version 5.00</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}]</p>
+            <p class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}]</p>
+        </div>
+        <p class="letterpress">&nbsp</p>
+        <!-- =====================================200703===================================== -->
+        <h4 class="passage" id="007">取消Cortana的网络搜索</h4>
+        <p class="letterpress">Win10的Cortana搜索非常方便，按几下键盘就可以打开应用。我桌面通常只有一个回收站，剩下的都放在开始菜单 --> 所有应用中，常用的放在磁贴处。</p>
+        <p class="letterpress">但使用Cortana搜索有一个问题，就是她经常会进行网络搜索，而我只需要本地的，所以网上找了方法来禁用Cortana的网络搜索：</p>
+        <p class="letterpress">1. 按下'win+r'打开运行程序输入'regedit'打开注册表编辑器</p>
+        <p class="letterpress">2.定位到以下位置:</p>
+        <div class="code_box">
+            <p class="code">计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search</p>
+        </div>
+        <p class="letterpress">3.将 CortanaConsent 的值修改为0</p>
+        <p class="letterpress">4.右键-新建-DWORD(32位)值</p>
+        <p class="letterpress">5.新建两项：“BingSearchEnabled”和“AllowSearchToUseLocation”，数值都是0</p>
+        <p class="letterpress">&nbsp;</p>
+        <!-- =====================================200804===================================== -->
+        <h4 class="passage" id="008">修改文件的权限</h4>
+        <p class="letterpress">在Windos中，一些系统相关的文件的删除和修改是需要权限的。一般权限都是TrustedInstaller所有的。</p>
+        <p class="letterpress">TrustedInstaller是从Windows Vista开始出现的一个内置安全主体，在Windows中拥有修改系统文件权限，本身是一个服务，以一个账户组的形式出现。它的全名是：NT SERVICE\TrustedInstaller。</p>
+        <p class="letterpress">如果用户要删除和修改这些文件的话，需要将文件的所有者改为用户自己，然后赋予自己修改文件的权限。下面说下步骤。</p>
+        <p class="letterpress">1.右键选择要修改权限的文件，选择"属性"，弹出"属性"窗口</p>
+        <p class="letterpress">2.选择安全选项卡，点击"高级"，弹出"高级安全设置"窗口</p>
+        <p class="letterpress">3.可以看到所有者为"TrustedInstaller"，需要将其改为用户自己，点击后面的"更改"，弹出"选择用户或组"窗口</p>
+        <p class="letterpress">4.然后再点击"高级"，弹出选择用户或组"窗口</p>
+        <p class="letterpress">5.点击立即查找，下面会有搜索结果，选择"Administrators"这个用户。然后一路确定，回到"属性"窗口的安全选项卡</p>
+        <p class="letterpress">6.在安全选项中，点击编辑，选择"Administrators"这个用户，下面的完全控制打勾，确定再确定，就可以了</p>
+        <p class="letterpress">到这里就获得了文件的权限的，可以进行修改和删除了。如果要把权限改回去的话就在第四步中的输入框中直接输入"NT SERVICE\TrustedInstaller"，一路确定即可，后面步骤都可以跳过了。</p>
+        <p class="letterpress">如果需要获取限权的文件很多的话，可以使用CMD进行修改，进入CMD，按顺序输入以下代码：</p>
+        <div class="code_box">
+            <p class="code">Takeown /F 路径 /r /d y</p>
+            <p class="code">cacls 路径 /t /e /g Administrators:F</p>
+        </div>
+        <p class="letterpress">其中路径改为要修改的文件夹，如果要修改改文件夹下的所有文件的话，就在后面加上"\*.*"。</p>
+        <p class="letterpress">比如要修改当前CDM定位盘文件下A文件中的所有文件，路径就是"A\*.*"。</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/galleryCompress/05.jpg" alt="">
+        <h3 class="title">用VScode写JAVA</h3>
+        <h6 class="snapshot">
+            VSCode是个好东西，启动又快。
+        </h6>
+        <p class="time">2020/04/22</p>
+
+        <h4 class="passage">搭建JAVA环境</h4>
+        <p class="letterpress"></p>
+        <p class="letterpress">首先先去装一个Java Extension Pack扩展，这个里面包含写JAVA需要用到的许多其他扩展。</p>
+        <p class="letterpress">然后再装一个Eclipse New Java Project，然后按下面的步骤操作</p>
+        <p class="letterpress">1.选择一个工作区,就是项目要放的文件夹</p>
+        <p class="letterpress">2.按下 Shift+Ctrl+P进入命令面板，输入New Java Project 创建项目</p>
+        <p class="letterpress">3.输入项目名</p>
+        <p class="letterpress">4.选择JDK版本</p>
+        <p class="letterpress">上面创建完项目后，我们看到在项目文件夹中有两个子文件夹，一个用来存源码即src，一个用来存class文件即bin，另外还有两个文件一个是.classpath文件，一个是.project文件</p>
+        <p class="letterpress">代码文件的话放在src文件夹下，里面可以建文件夹，相当于包。代码写完后按F5就可以运行了</p>
+        <h4 class="passage">导入第三方包</h4>
+        <p class="letterpress">再学习过程中又遇到了阻碍，看的教程是使用Eclipse，但我使用VSVode的，于是又摸索了一番，以下为步骤：</p>
+        <p class="letterpress">1.在项目下再建立一个文件夹，和src、bin等同级，命名为lib。同时在lib下再建立一个名为sources的文件夹(不要源码也行)</p>
+        <p class="letterpress">2.将要引入的jar包复制到lib目录下，源码文件包复制到sources文件夹下(不要源码也行)</p>
+        <p class="letterpress">3.修改.classpath文件，增加一行classpathentry，并填入正确的路径，可以填相对路径，也可以填绝对路径</p>
+        <div class="code_box">
+            <p class="code">&lt;classpathentry kind="lib" path="lib/commons-io-2.6.jar" sourcepath="lib/sources/commons-io-2.6-sources.jar"/&gt;</p>
+        </div>
+        <p class="letterpress">上面代码的sourcepath属性为源码，若不导入源码只需将sourcepath属性删除即可</p>
+        <p class="letterpress">&nbsp;</p>
+        <h4 class="passage">常用快捷键</h4>
+        <p class="letterpress">定位错误或警告：F8</p>
+        <p class="letterpress">添加解除断点：F9</p>
+        <p class="letterpress">启动调试、继续：F5</p>
+        <p class="letterpress">单步进入 / 单步跳出：F11 / Shift + F11</p>
+        <p class="letterpress">单步跳过：F10</p>
+        <p class="letterpress">快速导入所需包：Shift + Alt + O</p>
+        <p class="letterpress">添加关闭行注释: Ctrl + / </p>
+        <h4 class="passage">常见警告与错误</h4>
+        <p class="letterpress">CompileWarning</p>
+        <div class="code_box">
+            <p class="code">The value of the local variable * is not used  // 局部变量*的值没有使用</p>
+            <p class="code">The local variable * may not have been initialized // 局部变量*可能未初始化(1.局部变量 2.没有赋值(建议赋值null))</p>
+            <p class="code">The serializable class * does not declare a static final serialVersionUID field of type long // 实现了序列化接口,但是没有指定对应的序列化号码</p>
+        </div>
+        <p class="letterpress">CompileError</p>
+        <div class="code_box">
+            <p class="code">* cannot be resolved or is not a field // *无法解析或不是字段</p>
+            <p class="code">This method must return a result of type *  // 这个方法必须返回一个**类型</p>
+            <p class="code">Collection is a raw type. References to generic type Collection<E> should be parameterized // 容器指定类型</p>
+            <p class="code">The left-hand side of an assignment must be a variable  // 赋值左侧必须为变量</p>
+            <p class="code">This method requires a body instead of a semicolon // 此方法需要一个正文而不是分号</p>
+        </div>
+        <p class="letterpress">RunError</p>
+        <div class="code_box">
+            <p class="code">NullPointerException // 空指针异常，通常访问一个空对象的方法引起的，if判断下，不为空才运行</p>
+        </div>
+        <h4 class="passage">快速生成代码</h4>
+        <p class="letterpress">可以添加构造器及Set、Get方法。只对着需要的添加的地方右键，选则生成源代码...，勾选需要生成的构造器及方法即可</p>
+        <p class="letterpress">Organize imoorts--  导入模块</p>
+        <p class="letterpress">Override/Implement Methods -- 重写方法</p>
+        <p class="letterpress">Generate Getters and Setters -- 生成get和set方法</p>
+        <p class="letterpress">Generate hashCode() and equals()-- 生成hashCode()和equals(对比值是否相同)方法</p>
+        <p class="letterpress">Generate toString -- 生成toString方法(返回该对象的字符串表示)</p>
+        <p class="letterpress">Generate constructors -- 生成构造器</p>
+        <p class="letterpress">Generate delegate Methods -- 生成委派模式方法</p>
+        <h4 class="passage">JAVA打JAR包</h4>
+        <p class="letterpress">用的是VSCode，不能像Eclipse那样直接打包，只能通过CMD来打包了。</p>
+        <p class="letterpress">VSCode的终端实际上是个引用了系统的CMD,只不过它自动帮我们找到了当前的文件夹。所以直接在VSCode中操作就行了。</p>
+        <p class="letterpress">首先在项目目录(和src同以目录)下新建一个清单文件：manifest.txt文件。里面需要手动输入一些信息。</p>
+        <div class="code_box">
+            <p class="code">Manifest-Version: 1.0</p>
+            <p class="code">Class-Path: lib/jarA lib/jarB</p>
+            <p class="code">Main-Class: Demo.Test</p>
+            <p class="code">&nbsp;</p>
+        </div>
+        <p class="letterpress">上面一共有四行，作用分别如下：</p>
+        <p class="letterpress">1.Manifest-Version:  //指定Manifest的版本，这里不用改</p>
+        <p class="letterpress">2.Class-Path:  //导入程序引用的外部包的路径，多个使用空格隔开，没有可以不用写。</p>
+        <p class="letterpress">3.Main-Class:  // 告诉jar包中要运行的类，这里是运行src文件夹下的Demo文件夹下的Test类</p>
+        <p class="letterpress">4.//空行。最后一定要有这个空行，否则创建好的JAR不会把主类写进清单文件里</p>
+        <p class="letterpress">写好manifest文件后，就在VSCode的终端输入以下命令：</p>
+        <div class="code_box">
+            <p class="code">jar -cvfm name.jar manifest.txt -C bin/ .</p>
+        </div>
+        <p class="letterpress">其中name就是打包后JAR包的名字，可以自行修改</p>
+        <p class="letterpress">随后就可以在项目的目录下看到生成的JAR包了。</p>
+    </div>
+</body>
+</html>

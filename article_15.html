@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/15.jpg" alt="">
+        <h3 class="title">关于字符编码</h3>
+        <h6 class="snapshot">
+            这是算是个历史遗留问题了，大约两个月以前我在写JAVA的IO流遇到了编码的问题，现在使用log4j2把日志写进文件时又出现了。
+        </h6>
+        <p class="time">2020/08/02</p>
+
+        <h4 class="passage">问题的来源</h4>
+        <p class="letterpress">我是用VS Code写JAVA的，所以在搭建环境、创建项目、导jar包时都遇到了阻碍，但都一一解决了。</p>
+        <p class="letterpress">然而大约两个月前我有一次写IO流的时候，遇到了问题，代码很简单，就单纯的控制台输入输出：</p>
+        <div class="code_box">
+            <p class="code">import java.io.BufferedReader;</p>
+            <p class="code">import java.io.IOException;</p>
+            <p class="code">import java.io.InputStream;</p>
+            <p class="code">import java.io.InputStreamReader;</p>
+            <p class="code"></p>
+            <p class="code">public class Test {</p>
+            <p class="code">    public static void main(String[] args) throws IOException {</p>
+            <p class="code">        InputStream a = System.in;</p>
+            <p class="code">        System.out.println("请输入：");</p>
+            <p class="code">        InputStreamReader b = new InputStreamReader(a);</p>
+            <p class="code">        BufferedReader br = new BufferedReader(b);</p>
+            <p class="code">        System.out.println("返回：" + br.readLine());</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">就是从VSCode的控制台获取输入的字符，然后返回。然而当我输入中文的时候返回的却是一个空格，比如输入"中ab文cd"从控制台的到的返回结果是" ab cd"。于是我DEBUG看了一下，发现BufferedReader得到的数据就是空格。</p>
+        <p class="letterpress">只好上网找答案，但用VS Code写JAVA的本身就是少数，所以找了半天没找到。后来上CSDN提问，也没有得到解决。又上了Github上找插件的作者提问，回复说可能是系统编码的问题</p>
+        <p class="letterpress">于是按百度的:进注册表找到"HKEY_CURRENT_USER\Console\%SystemRoot%_system32_cmd.exe"，在下面新建了一个"DWORD(32位)值"，命名为"CodePage"，设置值为十进制的"65001"。</p>
+        <p class="letterpress">在试了下发现CDM编码确实改了，然而程序返回的中文依旧时空格</p>
+        <p class="letterpress">于是，我放弃了。</p>
+        <p class="letterpress">然而就在两天前，我在使用log4j2把日志写进文件时又出现了，代码也很简单：</p>
+        <div class="code_box">
+            <p class="code">import org.apache.logging.log4j.LogManager;</p>
+            <p class="code">import org.apache.logging.log4j.Logger;</p>
+            <p class="code">public class S504log4j {</p>
+            <p class="code">    public static void main(String[] args) {</p>
+            <p class="code">        System.out.println("=======log4j=======");</p>
+            <p class="code">        Logger logger = LogManager.getLogger(S504log4j.class);</p>
+            <p class="code">        logger.trace("trace level");</p>
+            <p class="code">        logger.debug("debug level");</p>
+            <p class="code">        logger.info("info level");</p>
+            <p class="code">        logger.warn("warn level");</p>
+            <p class="code">        logger.error("error level");</p>
+            <p class="code">        logger.fatal("fatal level");</p>
+            <p class="code">    }</p>
+            <p class="code">}</p>
+        </div>
+        <p class="letterpress">下面配置文件log4j2.xml，顺便说一句，在VSCode中，配置文件要放在src文件夹下:</p>
+        <div class="code_box">
+            <p class="code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+            <p class="code">&lt;Configuration&gt;  </p>
+            <p class="code">    &lt;Appenders&gt;</p>
+            <p class="code">        &lt;Console name="Console" target="SYSTEM_OUT"&gt;</p>
+            <p class="code">            &lt;PatternLayout pattern="%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" /&gt;</p>
+            <p class="code">        &lt;/Console&gt;</p>
+            <p class="code">        &lt;File name="MyTestLog" fileName="src\File\S504\logs\test.log" immediateFlush="false" append="true"&gt;</p>
+            <p class="code">            &lt;PatternLayout pattern="%d{yy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" /&gt;</p>
+            <p class="code">        &lt;/File&gt;</p>
+            <p class="code">    &lt;/Appenders&gt;</p>
+            <p class="code">    &lt;Loggers&gt;</p>
+            <p class="code">        &lt;Root level="error"&gt;</p>
+            <p class="code">            &lt;AppenderRef ref="Console" level="error"/&gt;</p>
+            <p class="code">            &lt;AppenderRef ref="MyTestLog" level="info" /&gt;</p>
+            <p class="code">        &lt;/Root&gt;</p>
+            <p class="code">    &lt;/Loggers&gt;</p>
+            <p class="code">&lt;/Configuration&gt;</p>
+        </div>
+        <p class="letterpress">基本就是使用log4j2的最基础的方法了。然而它给出这样的错误</p>
+        <div class="code_box">
+            <p class="code">Unable to get Charset 'cp65001' for property 'sun.stdout.encoding', using default UTF-8 and continuing.</p>
+        </div>
+        <p class="letterpress">也是编码的问题，于是又经过一番调试查找，还是没有解决。然而此时的我已经不在写IO流时的我了，终于自己解决了问题。</p>
+
+        <h3 class="passage">关于vscode-java-debug</h3>
+        <p class="letterpress">我是写用VS Code写JAVA时遇到了编码问题，用的时vscode-java-debug这个插件，经过我的摸索终于找到了修改的地方，是一个.bat文件，在系统盘下的用户文件夹中，我电脑上路径如下：</p>
+        <div class="code_box">
+            <p class="code">c:\Users\User\.vscode\extensions\vscjava.vscode-java-debug-0.27.1\scripts\launcher.bat</p>
+        </div>
+        <p class="letterpress">在运行java是终端也会有这个文件，可以直接从终端进去。</p>
+        <p class="letterpress">然后进行修改，将</p>
+        <div class="code_box">
+            <p class="code">@chcp.com 65001 > NUL</p>
+        </div>
+        <p class="letterpress">修改为</p>
+        <div class="code_box">
+            <p class="code">@chcp.com 936 > NUL</p>
+        </div>
+        <p class="letterpress">同时IO流的编码格式也要改为GBK。</p>
+        <p class="letterpress">重新测试了一下发现已经可以正常显示中文了。log4j生成的日志也能写进文件了，当然如果日志有中文encoding也要设置为GBK。</p>
+
+        <h3 class="passage">GBK与UTF-8</h3>
+        <p class="letterpress">正常我国的Windows系统使用的都是BGK字符集，因此CMD也是，这个在CMD中可以获得，输入"chcp"就可以得到系统的字符集，应该是"936"。</p>
+        <p class="letterpress">GBK是国家标准GB2312基础上扩容后兼容GB2312的标准。GBK的文字编码是用双字节来表示的，即不论中、英文字符均使用双字节来表示，为了区分中文，将其最高位都设定成1。</p>
+        <p class="letterpress">然而一般情况下，写代码都是用UTF-8的，UTF－8编码则是用以解决国际上字符的一种多字节编码，它对英文使用一个字节，中文使用三个字节或者四个字节来编码。UTF-8采用了一种可变长的编码方式，即将常用的字符编码成较短的序列，而不常用的字符用较长的序列表示，这样让编码占用更少存储空间的同时也保证了对庞大字符集的支持。</p>
+        <p class="letterpress">这就会导致一个问题: UTF-8怎么区分这个字节的长度？</p>
+        <p class="letterpress">因此UTF-8的读取方式也比较不同，需要先读取第一个字节，然后根据这个字节的值才能判断这个字节之后还有几个字节共同参与一个字符的表示。</p>
+        <p class="letterpress">对于某一个字符的UTF-8编码，如果只有一个字节则其最高二进制位为0；如果是多字节，其第一个字节从最高位开始，连续的二进制位值为1的个数决定了其编码的位数，其余各字节均以10开头。UTF-8最多可用到6个字节。</p>
+        <p class="letterpress">如下：</p>
+        <div class="code_box">
+            <p class="code">1字节 0xxxxxxx</p>
+            <p class="code">2字节 110xxxxx 10xxxxxx</p>
+            <p class="code">3字节 1110xxxx 10xxxxxx 10xxxxxx</p>
+            <p class="code">4字节 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+            <p class="code">5字节 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+            <p class="code">6字节 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+        </div>
+        <p class="letterpress">开头的为控制位，剩余的为表示位，与unicode编码是一一对应的，位高低顺序也相同。</p>
+        <p class="letterpress">其实到了5和6字节的时候已经超出了unicode编码范围，根据规范，这些字节值将无法出现在合法 UTF-8序列。</p>
+        <p class="letterpress">这些都不重要，重要的是由于这个原因，有些序列是不会出现在UTF-8编码中的。</p>
+        <p class="letterpress">由于编码不同的原因，当从其中一个编码转为另一个时就会出现乱码。</p>
+        <p class="letterpress">如当我们将一串中文"风台啊"使用GBK进行编码，得到的二进制结果为"1011011111100111 1100110010101000 1011000010100001"，在使用UTF-8进行解码，对照上面的表，UTF-8的开头不可能为10，于是只能得到"�"，这就是乱码的原因了。</p>
+        <p class="letterpress">而如果使用UTF-8进行编码，将得到"111010011010001110001110 111001011000111110110000 111001011001010110001010"，在使用GBK进行解码，用记事本试了下结果为"椋庡彴鍟�"，也是乱码。</p>
+        <p class="letterpress">接着当我们将UTF-8转换成GBK再转成UTF-8的时候，也出现了问题。首先UTF-8转换成GBK会向上面那样，出现乱码(椋庡彴鍟�)，接着对乱码使用GBK编码，就应该能还原到解码前的byte数组。
+        <p class="letterpress">然而这里有一个问题，一个汉字在UTF-8中占三个字节(至少这几个字是)，于是三个中文通过UTF-8编码后是九个字节，然后用GBK进行解码。GBK不像UTF-8是可变长的编码方式，直接两个字节的解码，解了八个字节后，还剩一个字节，不够两个了，怎么办？不解了，于是丢失了一个字节，造成信息的丢失，无法逆向的恢复。
+        <p class="letterpress">然后对这个解码后的字符在使用GBK进行编码，接着使用UTF-8进行解码，前几个字符还能回来，但那个被丢失就回不来了，得到了"风台�?"，也出现了乱码。</p>
+        <p class="letterpress">而如果文字长度为双数的时候就不会有这个问题，因为双数长度的文字使用UTF-8进行解码的字节长度还是双数，GBK进行解码不会照成数据的丢失。</p>
+        <p class="letterpress">接着是将GBK转换成UTF-8再转成GBK的时候，这也产生了乱码，而且比上边的UTF-8转换成GBK再转成UTF-8数据丢失更严重。前面有说过，UTF-8解码时遇到不存在的序列时会直接全部解码为"�"。于是当这个字符再次使用UTF-8进行编码后，数据完全变了，变成了"111011111011111110111101"，也是乱码"锟斤拷台锟斤拷"。</p>
+        <p class="letterpress">这是非常常见的乱码了。这是因为当两个"�"相遇时，就变成了"��"，这字符通过UTF-8被编码成"1110111110111111 1011110111101111 1011111110111101"，这一串在被GBK解码就是"锟斤拷"了。</p>
+        <p class="letterpress">综上如果只是将UTF-8转换成GBK再转成UTF-8，遇到双数文字是不会有问题的，遇到单数文字可能会丢失后面几个字符。然而如果是将GBK转换成UTF-8再转成GBK，那么极大概率就是一堆"锟斤拷"。</p>
+
+        <h3 class="passage">个人的一些猜想</h3>
+        <p class="letterpress">遇到这个的问题的时候我做了很多测试，IO流的编码修改，文件编码的修改，CMD的编码修改。都无济于事，虽然我一直怀疑是终端的问题，但一直没找到解决的办法，因为我在测试时在VSCode终端输入chcp，得到的时65001也就是UTF-8，而我当时所能设置的编码格式全设成了UTF-8，如IO流，文件的保存格式。</p>
+        <p class="letterpress">这次终于解决了，也不知道算不算解决，这意味着我的程序有一部分时经过GBK处理的，而我写的代码文件都是UTF-8的，这是个问题。</p>
+        <p class="letterpress">然后说说我的猜想，我想是因为vscode-java-debug这个插件运行JAVA代码时使用了UTF-8的终端又使用了GBK的终端照成，等我英文好了在去作者那里说一下。</p>
+        <p class="letterpress">当然，这就要看我的技术长进比较快还是英语了。</p>
+    </div>
+</body>
+</html>

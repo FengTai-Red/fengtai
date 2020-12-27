@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/galleryCompress/06.jpg" alt="">
+        <h3 class="title">Java的关键字</h3>
+        <h6 class="snapshot">
+            Java是一门面向对象编程语言。和python的一切皆对象不同，JAVA的对象都要自己new一个，所以要导一大堆包。这里总结一下JAVA的关键字，学到就写，没学到的没写。
+        </h6>
+        <p class="time">2020/04/24</p>
+        <h4 class="passage">包</h4>
+        <p class="letterpress">import：表明要访问指定的类或包</p>
+        <p class="letterpress">package：包</p>
+        <h4 class="passage">变量引用</h4>
+        <p class="letterpress">super：表明当前对象的父类型的引用或者父类型的构造方法</p>
+        <p class="letterpress">this：指向当前实例对象的引用，用于引用当前实例</p>
+        <p class="letterpress">void：声明当前成员方法没有返回值，void可以用作方法的返回类型，以指示该方法不返回值</p>
+        <h4 class="passage">基本数据类型</h4>
+        <p class="letterpress">boolean：boolean数据类型表示一位的信息；只有两个取值：true 和 false；默认为false</p>
+        <p class="letterpress">char：char类型是一个单一的 16 位 Unicode 字符；取值范围0~65535；占用2Byte</p>
+        <p class="letterpress">byte：byte 数据类型是8位、有符号的，以二进制补码表示的整数；取值范围:-2^7~2^7-1；占用1Byte</p>
+        <p class="letterpress">short：short 数据类型是 16 位、有符号的以二进制补码表示的整数；取值范围：-2^15~2^15-1；占用2Byte</p>
+        <p class="letterpress">int：int 数据类型是32位、有符号的以二进制补码表示的整数；取值范围：-2^31~2^31-1；占用4Byte</p>
+        <p class="letterpress">long：long 数据类型是 64 位、有符号的以二进制补码表示的整数；取值范围：-2^63~2^63-1；占用8Byte；默认值是0L</p>
+        <p class="letterpress">float：float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；占用4Byte；默认值是0.0f</p>
+        <p class="letterpress">double：double 数据类型是双精度、64 位、符合IEEE 754标准的浮点数；占用8Byte；默认值是0.0d</p>
+        <p class="letterpress">null：空，表示无值，不能将null赋给原始类型（byte、short、int、long、char、float、double、boolean）变量</p>
+        <p class="letterpress">true：真，boolean变量的两个合法值之一</p>
+        <p class="letterpress">false：假，boolean变量的两个合法值之一</p>
+        <h4 class="passage">访问控制</h4>
+        <p class="letterpress">private：私用模式，只有同一个类可以访问</p>
+        <p class="letterpress">friendly：不是关键字，默认的不加就是这个，同一个类、同一包中的其他类可以访问</p>
+        <p class="letterpress">protected：保护模式，同一个类、同一包中的其他类、不同包中的子类可以访问</p>
+        <p class="letterpress">public：共用模式，同一个类、同一包中的其他类、不同包中的子类、不同包中的非子类都可以访问</p>
+        <h4 class="passage">错误处理</h4>
+        <p class="letterpress">try：尝试一个可能抛出异常的程序块</p>
+        <p class="letterpress">catch：用在异常处理中，用来捕捉异常</p>
+        <p class="letterpress">throw：抛出一个异常</p>
+        <p class="letterpress">throws：声明在当前定义的成员方法中所有需要抛出的异常</p>
+        <h4 class="passage">程序控制</h4>
+        <p class="letterpress">break：提前跳出一个块</p>
+        <p class="letterpress">continue：回到一个块的开始处</p>
+        <p class="letterpress">return：从成员方法中返回数据</p>
+        <p class="letterpress">do：用在do-while循环结构中</p>
+        <p class="letterpress">while：用在循环结构中</p>
+        <p class="letterpress">if：条件语句的引导词</p>
+        <p class="letterpress">else：用在条件语句中，表明当条件不成立时的分支</p>
+        <p class="letterpress">for：一种循环结构的引导词</p>
+        <p class="letterpress">switch：分支语句结构的引导词</p>
+        <p class="letterpress">case	用在switch语句之中，表示其中的一个分：</p>
+        <h4 class="passage">类、方法和变量修饰符</h4>
+        <p class="letterpress">abstract：表明类或者成员方法具有抽象属性，用于修改类或方法</p>
+        <p class="letterpress">class：声明一个类，用来声明新的Java类</p>
+        <p class="letterpress">extends：表明一个类型是另一个类型的子类型。对于类，可以是另一个类或者抽象类；对于接口，可以是另一个接口</p>
+        <p class="letterpress">final：用来说明最终属性，表明一个类不能派生出子类，或者成员方法不能被覆盖，或者成员域的值不能被改变，用来定义常量</p>
+        <p class="letterpress">implements：表明一个类实现了给定的接口</p>
+        <p class="letterpress">interface：接口</p>
+        <p class="letterpress">new：用来创建新实例对象</p>
+        <p class="letterpress">static：表明具有静态属性</p>
+    </div>
+</body>
+</html>

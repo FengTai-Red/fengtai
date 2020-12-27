@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/11.jpg" alt="">
+        <h3 class="title">Python读取Excel表格</h3>
+        <h6 class="snapshot">
+            本来想把看过的番剧列表导出来放到网站上，但没想好排版方式，先把如何用Python读取Excel的写一下吧
+        </h6>
+        <p class="time">2020/05/24</p>
+
+        <h4 class="passage">Python读取Excel表格</h4>
+        <p class="letterpress">使用的是xlrd模块写的，读取表格的形式只能是第一行为标题，第二行开始为内容的形式，大概就下面这种形式，当然标题数不限</p>
+        <table border="1" cellspacing="0" width="300" style="margin:auto">
+            <tr>
+            <th>名称</th> 
+            <th>制作公司</th>
+            <th>播放时间</th>
+            </tr> 
+            <tr>
+            <td>虫师</td>
+            <td>ARTLAND</td>
+            <td>2005/10/1</td>
+            </tr>
+            <tr>
+            <td>化物语</td>
+            <td>SHAFT</td>
+            <td>2009/7/1</td>
+            </tr>
+        </table>
+        <p class="letterpress">得到的数据每一行以标题为Key，正文为Value，储存在字典中，然后在储存在列表中。</p>
+        <p class="letterpress">大概就是这样的形式list = [{"名称": "虫师", "制作公司": "ARTLAND", "播放时间": "2005年10月"}, {"名称": "化物语", "制作公司": "SHAFT", "播放时间": "2009年7月"}]</p>
+        <p class="letterpress">其他形式的表格后面需要再改就好了，毕竟我现在需要统计的表格就是这种形式。</p>
+        <p class="letterpress">下面是将Excel转换成list的代码，其中时间格式返回的是一个整数，需要转换，方法传入文件名，放回list</p>
+        <div class="code_box">
+            <p class="code">import xlrd</p>
+            <p class="code">def obtain_excel_information(exce_name):</p>
+            <p class="code">    # 用于获取表格的信息</p>
+            <p class="code">    print("表格转列表开始")</p>
+            <p class="code">    workbook = xlrd.open_workbook(exce_name)</p>
+            <p class="code">    sheet = workbook.sheet_by_index(0)</p>
+            <p class="code">    rows_num = sheet.nrows</p>
+            <p class="code">    cols_num = sheet.ncols</p>
+            <p class="code">    all_information_list = []  # 用于存储所有表格的信息</p>
+            <p class="code">    title_list = []  # 用于储存标题信息</p>
+            <p class="code">    for col in range(0, cols_num):</p>
+            <p class="code">        title_list.append(sheet.cell_value(0, col))</p>
+            <p class="code">    for row in range(1, rows_num):</p>
+            <p class="code">        anime_dict = {}  # 用于储存某一动画</p>
+            <p class="code">        for col in range(0, cols_num):</p>
+            <p class="code">            cell_row_col_type = sheet.cell_type(row, col)</p>
+            <p class="code">            cell_row_col_value =  sheet.cell_value(row, col)</p>
+            <p class="code">            if (cell_row_col_type == 3):</p>
+            <p class="code">                cell_row_col_value = xlrd.xldate_as_tuple(cell_row_col_value, workbook.datemode)</p>
+            <p class="code">                cell_row_col_value = "{0}年{1}月".format(cell_row_col_value[0], cell_row_col_value[1])  # 以YYYYMM的格式储存日期</p>
+            <p class="code">            anime_dict[title_list[col]] = cell_row_col_value</p>
+            <p class="code">        all_information_list.append(anime_dict)</p>
+            <p class="code">    print("表格转列表完成")</p>
+            <p class="code">    return all_information_list</p>
+            <p class="code"></p>
+        </div>
+        <p class="letterpress">获得的list就可以进行其他操作了，我是把他储存成TXT文本</p>
+        <h4 class="passage">将list储存成TXT文本</h4>
+        <p class="letterpress">这部分就很简单了，传入上面列表就行了</p>
+        <div class="code_box">
+            <p class="code">def list_to_txt(information_list):</p>
+            <p class="code">    # 将列表信息存储成TXT</p>
+            <p class="code">    print("列表转文本开始")</p>
+            <p class="code">    with open("Anime.txt", 'w', encoding='UTF-8') as file:</p>
+            <p class="code">        for a_information in information_list:</p>
+            <p class="code">            for key, value in a_information.items():</p>
+            <p class="code">                file.write("{0}:{1}, ".format(key, value))</p>
+            <p class="code">            file.write("\n")</p>
+            <p class="code">    print("列表转文本完成")</p>
+            <p class="code"></p>
+        </div>
+        <p class="letterpress">最后两个结合一下就可以了</p>
+        <div class="code_box">
+            <p class="code">def main():</p>
+            <p class="code">    exce_name = "Anime.xlsx"</p>
+            <p class="code">    information_list =obtain_excel_information(exce_name)</p>
+            <p class="code">    list_to_txt(information_list)</p>
+        </div>
+        <p class="letterpress">&nbsp;</p>
+    </div>
+</body>
+</html>

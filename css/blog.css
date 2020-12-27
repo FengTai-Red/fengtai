@@ -1,0 +1,100 @@
+/*
+博客主页部分
+*/
+#blog {
+    background-color: rgba(102, 204, 255, .5);
+    border-radius: 7px
+}
+.user {
+    /* 用户界面 */
+    float: left;
+    width: 230px;
+    height: 350px;
+    margin-top: 50px;
+    margin-left: 100px;
+    border-radius: 19px;
+    background-color: #66ccff;
+}
+.user .user_background {
+    /* 用户背景 */
+    width: 100%;
+    border-radius: 19px 19px 0 0;
+}
+.user .user_avatar {
+    /* 用户头像 */
+    margin-top: -60px;
+    margin-left: 50px;
+    width: 47%;
+    border: 5px solid rgba(102, 204, 255, .5);
+    border-radius: 50%;
+}
+.user h1 {
+    /* 用户名 */
+    margin-left: 70px;
+    font-size: 39px;
+    color: #000000;
+}
+.user_information {
+    /* 用户信息 */
+    width: 100%;
+    bottom: 20px;
+}
+.user_label {
+    /* for science */
+    color: #000000;
+    font-size: 15px;
+    padding-left: 60px;
+    width: 100px;
+    text-align: center;
+}
+.user_information_a {
+    /* LeetCode */
+    float: left;
+    width: 50px;    
+    height: 50px;
+    text-align: center;
+    margin: 10px 30px;
+}
+.user_information_b {
+    /* 追番数 */
+    float: right;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    margin: 10px 30px;
+}
+.blog_box {
+    /* 博客界面 */
+    float: right;
+    margin-top: 30px;
+    margin-right: 230px;
+}
+.blog_box .blog {
+    /* 博客界面 */
+    width: 600px;
+    height: 310px;
+    margin-bottom: 23px;
+    border-radius: 19px;
+    background-size: 100%;
+    background-repeat: round;
+}
+
+.blog_box .blog h3 {
+    /* 文章标题 */
+    line-height: 310px;
+    text-align: center;
+    font-size: 37px;
+    color: #ffffff;
+    transition: all 1s;
+}
+
+.blog_box .blog h3:hover {
+    /* 文章标题 */
+    font-size: 53px;
+    color: #66ccff;
+}
+
+.user_day:hover {
+    /* 文章标题 */
+    color: #ff5e00;
+}

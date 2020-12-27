@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风台</title>
+    <meta name="description" content="风台的个人网站">
+    <meta name="keyworks" content="风台">
+    <link rel="shortcut icon" href="image/base/favicon.ico">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <script type="text/javascript" src="js/head.js"></script>
+    
+    <div class="live2D">
+        <!-- 偷来的看板娘 -->
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/L2Dwidget.0.min.js"></script>
+        <script type="text/javascript">
+        L2Dwidget.init({"display": {
+            "superSample": 2,
+            "width": 200,
+            "height": 400,
+            "position": "right",
+            "hOffset": 100,
+            "vOffset": 100
+            }
+        });
+        </script>
+    </div>
+    <div class="article">
+        <!-- 文章 -->
+        <img class="bg" src="image/gallery/14.jpg" alt="">
+        <h3 class="title">自动更新LeetCode题</h3>
+        <h6 class="snapshot">
+            每次做完LeetCode题后，都要手动把代码写成HTML语句，然后更新到网页上。这是一件麻烦的事，于是采用了Python来进行自动更新
+        </h6>
+        <p class="time">2020/07/20</p>
+
+        <h4 class="passage">文件与列表的转换</h4>
+        <p class="letterpress">要对文件进行读写，都要先读到内存里，我这里就以每行为一个元素储存成了列表。比较简单，直接贴代码了</p>
+        <div class="code_box">
+            <p class="code">def text2list(filepath):</p>
+            <p class="code">    #传入一个文件路径，返回一个以每行为一个元素的列表</p>
+            <p class="code">    # filepath : 文件路径</p>
+            <p class="code">    # return 转化的列表</p>
+            <p class="code">    file_list = []</p>
+            <p class="code">    line = ""</p>
+            <p class="code">    files = []</p>
+            <p class="code">    with open(filepath, 'r', encoding='UTF-8') as file:</p>
+            <p class="code">        for file_line in file:</p>
+            <p class="code">            file_list.append(file_line.replace("\n", ""))</p>
+            <p class="code">    return file_list</p>
+            <p class="code"></p>
+            <p class="code">def list2text(file_list, save_path):</p>
+            <p class="code">    # 传入一个列表，将其转为字符型文件</p>
+            <p class="code">    # file_list : 要存成文件的列表</p>
+            <p class="code">    with open(save_path, 'w', encoding='UTF-8') as file:</p>
+            <p class="code">        for html in file_list:</p>
+            <p class="code">            file.write(str(html) + "\n")</p>
+            <p class="code"></p>
+        </div>
+        <h4 class="passage">LeetCode代码的的转换</h4>
+        <p class="letterpress">我给自己定的是一天做一道LeetCode的算法题(并没有完成)。我做题都是用Python去做的。格式都是前面为注释形式写的题目，直接在LeetCode网页上复制，然后后面接上题目答案的代码，最后写句'if __name__ == "__main__":'在这下面进行题目的测试。就向下面这样:</p>
+        <div class="code_box">    
+            <p class="code"># 70. 爬楼梯</p>
+            <p class="code"># 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+            <p class="code"># 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+            <p class="code"># 注意：给定 n 是一个正整数。</p>
+            <p class="code"># 示例 1：</p>
+            <p class="code"># 输入： 2</p>
+            <p class="code"># 输出： 2</p>
+            <p class="code"># 解释： 有两种方法可以爬到楼顶。</p>
+            <p class="code"># 1.  1 阶 + 1 阶</p>
+            <p class="code"># 2.  2 阶</p>
+            <p class="code"># 示例 2：</p>
+            <p class="code"># 输入： 3</p>
+            <p class="code"># 输出： 3</p>
+            <p class="code"># 解释： 有三种方法可以爬到楼顶。</p>
+            <p class="code"># 1.  1 阶 + 1 阶 + 1 阶</p>
+            <p class="code"># 2.  1 阶 + 2 阶</p>
+            <p class="code"># 3.  2 阶 + 1 阶</p>
+            <p class="code">class Solution(object):</p>
+            <p class="code">    def climbStairs(self, n):</p>
+            <p class="code">        """</p>
+            <p class="code">        :type n: int</p>
+            <p class="code">        :rtype: int</p>
+            <p class="code">        """</p>
+            <p class="code">        if (n == 1):</p>
+            <p class="code">            return 1</p>
+            <p class="code">        li = [1,1]</p>
+            <p class="code">        for i in range(1, n):</p>
+            <p class="code">            temp = li[i] + li[i - 1]</p>
+            <p class="code">            li.append(temp)</p>
+            <p class="code">        return li[n]</p>
+            <p class="code"></p>
+        </div>
+        <p class="letterpress">可以看到第一行就是题目，然后这行题目也是有规律的，首先是注释的符号'#'，然后一个空格，在跟上题目编号，最后是题目名称</p>
+        <p class="letterpress">接下来就是'#'开头的题目，然后是解题的函数，最后是测试。</p>
+        <p class="letterpress">第一行就是题目信息，这也决定了要更新插入HTML的位置，同时为了方便，将其题目编号和题目名称都return了。这里使用了正则，所以记得导入're'包。</p>
+        <p class="letterpress">然后将其转成HTML格式，比较简单，直接字符串拼接就行，这里靠开头是不是注释符号'#'来区分题目和题解：</p>
+        <div class="code_box"> 
+            <p class="code">def letCode_to_gtml(file_list):</p>
+            <p class="code">    # 传入一个列表，将其按指定格式进行转换,这里传入的为leetcode的题目解答，文件格式为前半部分为注释写的题目，后半部为代码</p>
+            <p class="code">    # 返回一个列表，以及题目的编号</p>
+            <p class="code">    index_and_text = file_list[0].split('.')</p>
+            <p class="code">    questions_index = index_and_text[0][2:len(index_and_text[0])].zfill(4)</p>
+            <p class="code">    questions_text = index_and_text[1][1:len(index_and_text[1])]</p>
+            <p class="code">    file_list[0] = "&lt;p class=\"letterpress_title\" id=\"{0}\"&gt;{0} .{1}&lt;/p&gt;".format(questions_index, questions_text)</p>            <p class="code">    le = len(file_list)</p>
+            <p class="code">    i = 1</p>
+            <p class="code">    code_start = False</p>
+            <p class="code">    end = -1</p>
+            <p class="code">    while(i &lt; le - 1):</p>
+            <p class="code">        if (file_list[i].lstrip() != "" and file_list[i].lstrip()[0] == "#"):</p>
+            <p class="code">            file_list[i] = "&lt;p class=\"letterpress\"&gt;" + file_list[i][2:].replace("\n", "") + "&lt;/p&gt;"</p>
+            <p class="code">            code_start = False</p>
+            <p class="code">        elif(code_start == False):</p>
+            <p class="code">            code_start = True</p>
+            <p class="code">            file_list.insert(i, "&lt;div class=\"code_box\"&gt;")</p>
+            <p class="code">            le += 1</p>
+            <p class="code">        else:</p>
+            <p class="code">            file_list[i] = "    &lt;p class=\"code\"&gt;" + file_list[i].replace("\n", "") + "&lt;/p&gt;"</p>
+            <p class="code">        i += 1</p>
+            <p class="code">        if (file_list[i].lstrip()[0:13] == "if __name__ ="):</p>
+            <p class="code">            file_list.insert(i, "&lt;/div&gt;")</p>
+            <p class="code">            end = i + 1</p>
+            <p class="code">            break</p>
+            <p class="code">    return (file_list[0:end], questions_index, questions_text)</p>
+            <p class="code"></p>
+        </div>
+        <h4 class="passage">插入原本的HTML文件</h4>
+        <p class="letterpress">我原本在我这个网站上的LeetCode题解更新就是靠前面的代码进行转换，然后手动复制进去。这是不是一件麻烦的事，也就不到三分钟，然而这样做显得特别捞。所以加了段自动找位置插入的代码</p>
+        <p class="letterpress">LeetCode题解的HTML文件代码就不贴了，纯静态网页，直接去看就行了。</p>
+        <p class="letterpress">要进行更新，一共有两个要插入的地方，分别是是题目索引和题解的正文</p>
+        <p class="letterpress">前几句直接复制就行，然后中间线找到题目索引的HTML语句，用正则将题目的题号提取出来，和上一个将LeetCode转成HTML函数返回的得到题目题号进行比较，找到插入位置，转换下格式插入就可以了</p>
+        <p class="letterpress">然后是题目正文的插入，首先还是找插入的位置，依旧使用正则进行判断。与题目索引插入不同的是，题目索引的插入直接在下一行插入就好了，要到找到要插入的这题(如要将70题插在67题后面，需要得到67题正文的行数)正文行数，加上这个数在进行插入。</p>
+        <div class="code_box">
+            <p class="code">def insert_to_html(html_list, code_list, questions_index, questions_text):</p>
+            <p class="code">    # 将写转好的leetcode插入HTML</p>
+            <p class="code">    le = len(html_list)</p>
+            <p class="code">    is_doing = False  # 该题是否做过</p>
+            <p class="code">    pattern_index = "(?&lt;=\\bclass\=\"index\"\shref\=\"#)\w+\\b"  # 用于查找索引的正则</p>
+            <p class="code">    subject_insert_index = 0  # 题目索引的HTML语句插入的位置</p>
+            <p class="code">    end_subject_index_insert = False  # 结束题目索引的插入</p>
+            <p class="code">    pattern_letterpress_title = "(?&lt;=class\=\"letterpress_title\"\sid=\")\w+\\b"  # 用于查找题目正文的正则</p>
+            <p class="code">    pattern_subject_insert_index = 0  # 题目正文的HTML语句插入的位置</p>
+            <p class="code">    end_subject_letterpress_insert = False  # 结束题目正文的插入</p>
+            <p class="code">    subject_letterpress_line_num = 0 # 题目正文的行数</p>
+            <p class="code">    for i in range(le):</p>
+            <p class="code">        cls_index = re.search(pattern_index, html_list[i])</p>
+            <p class="code">        cls_letterpress_title = re.search(pattern_letterpress_title, html_list[i])</p>
+            <p class="code">        if (cls_index and not end_subject_index_insert):  </p>
+            <p class="code">            # 进行题目索引位置的查找和插入</p>
+            <p class="code">            if (int(cls_index.group()) == int(questions_index)):</p>
+            <p class="code">                print("这题已经做过了")</p>
+            <p class="code">                is_doing = True</p>
+            <p class="code">                break</p>
+            <p class="code">            elif(int(cls_index.group()) &gt; int(questions_index)):</p>
+            <p class="code">                subject_insert_index = i</p>
+            <p class="code">                end_subject_index_insert = True</p>
+            <p class="code">            else:</p>
+            <p class="code">                subject_insert_index = i + 1</p>
+            <p class="code"></p>
+            <p class="code">        if (cls_letterpress_title and not end_subject_letterpress_insert):</p>
+            <p class="code">            # 进行题目正文引位置的查找和插入</p>
+            <p class="code">            if(int(cls_letterpress_title.group()) &gt; int(questions_index)):</p>
+            <p class="code">                pattern_subject_insert_index = i</p>
+            <p class="code">                end_subject_letterpress_insert = True</p>
+            <p class="code">            else:</p>
+            <p class="code">                pattern_subject_insert_index = i</p>
+            <p class="code">            subject_letterpress_line_num = 0 # 题目正文的行数归零</p>
+            <p class="code">        # 找到正文位置后进行正文行数的判断</p>
+            <p class="code">        subject_letterpress_line_num += 1</p>
+            <p class="code">        between_subject = "(?&lt;=&lt;/di)\w+\\b"</p>
+            <p class="code">        if (between_subject and end_subject_letterpress_insert):</p>
+            <p class="code">            break</p>
+            <p class="code">        last_subject = re.search("(?&lt;=&lt;\!\-\-\s===================)\w+\\b", html_list[i])  # 已经是最后一个题目</p>
+            <p class="code">        if (last_subject):</p>
+            <p class="code">            if(last_subject.group() == "底线"):</p>
+            <p class="code">                break</p>
+            <p class="code">    pattern_subject_insert_index += subject_letterpress_line_num</p>
+            <p class="code">    if (end_subject_letterpress_insert):</p>
+            <p class="code">        pattern_subject_insert_index -= 1</p>
+            <p class="code">    if (not is_doing):</p>
+            <p class="code">        html_list.insert(subject_insert_index, "        &lt;a class=\"index\" href=\"#{0}\"&gt;{0}.{1}&lt;/a&gt;".format(questions_index, questions_text))</p>
+            <p class="code">        html_list.insert(pattern_subject_insert_index, "        &lt;!-- ===================分界线=================== --&gt;")</p>
+            <p class="code">        le = len(code_list)</p>
+            <p class="code">        for i in range(le):</p>
+            <p class="code">            html_list.insert(pattern_subject_insert_index + i + 1, "        " + code_list[i])</p>
+            <p class="code">    return html_list</p>
+        </div>
+        <p class="letterpress">最后将其综合，执行就好了</p>
+        <div class="code_box">
+            <p class="code">def main():</p>
+            <p class="code">    code_path = "D:/File/Python/LeetCode/0070.py"  # LeetCode代码的位置</p>
+            <p class="code">    html_path = "LeetCode.html"  # 要更新的HTML位置</p>
+            <p class="code">    code_list = letCode_to_gtml(text2list(code_path))</p>
+            <p class="code">    html_list = insert_to_html(text2list(html_path), code_list[0], code_list[1], code_list[2])</p>
+            <p class="code">    save_path = "LeetCode.html"  # 保存的位置</p>
+            <p class="code">    list2text(html_list, save_path)</p>
+        </div>
+        <h4 class="passage">结语</h4>
+        <p class="letterpress">很久没有更新了，刚建站的时候还想着一周一篇，现在都快两个月了才出新的。虽然没人看，但写文章是对自己学到的知识的一种总结方式。多多益善，以后还是要多写</p>
+        <p class="letterpress">上面这个小脚本其实两周前就想写了，但拖到了现在，堕落啊。而且在写最后一个功能，就是将转好的LeetCode插入现有的HTML中的时候，卡了一个晚上， 最后写出来的也是强行写出来的，为了实现功能而写出来的，代码的简洁性已经被我抛弃了，可读性也不高。</p>
+        <p class="letterpress">但是，它成功的运行了。这是好事，优化是其他时候的事了。</p>
+        <p class="letterpress">并且，我完成这题的时候背景歌刚好是我最喜欢的歌"秋姉妹のなく頃に"，也就是主页的背景音乐。所以我觉得优化这件事就先放一边把。(゜-゜)つロ </p>
+    </div>
+</body>
+</html>

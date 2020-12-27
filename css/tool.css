@@ -1,0 +1,63 @@
+/*
+工具部分
+*/
+#tool {
+    background-color: rgba(102, 204, 255, .5);
+    border-radius: 7px
+}
+.tools {
+    width: 1000px;
+    margin: 30px auto;
+}
+.tools .tool {
+    width: 800px;
+    height: 100px;
+    margin: 30px auto;
+    border-radius: 17px;
+    background-color: rgba(200, 200, 200, .5);
+}
+.tools img {
+    float: left;
+    height: 70%;
+    margin: 15px;
+    border-radius: 17px;
+}
+.information {
+    width: 500px;
+    height: 80px;
+    padding: 10px;
+}
+.tools .information {
+    float: left;
+    overflow: hidden;
+}
+.information h3 {
+    display: inline;
+    margin-right:100px ;
+    font-size: 23px;
+    line-height: 23px;
+    color: #000000;
+}
+.information h4 {
+    display: inline;
+    font-size: 17px;
+    line-height: 23px;
+    color: #000000;
+}
+.information p {
+    font-size: 13px;
+    line-height: 21px;
+    color: #333333;
+}
+.tools a {
+    float: right;
+    height: 50px;
+    width: 100px;
+    margin-top: 25px;
+    margin-right: 20px;
+    border-radius:13px ;
+    font-size: 17px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #000000;
+}
